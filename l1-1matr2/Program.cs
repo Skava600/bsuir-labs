@@ -32,6 +32,7 @@ namespace l1_matr
             }
 
         }
+        //******УМНОЖЕНИЕ МАТРИЦ*************************************
         static void Mult(int[,] a, int[,] b, int n, int m, int n1, int m1)
         {
             if (m != n1)
@@ -63,8 +64,9 @@ namespace l1_matr
             }
 
         }
-
-
+        //****************************************************************
+        
+        //*****ВЫВОД МАТРИЦЫ***********************************************
         static void Vivod(int[,] a, int[,] b, int n, int m, int n1, int m1)
         {
             for (int i = 0; i < n; i++)
@@ -86,6 +88,9 @@ namespace l1_matr
             }
 
         }
+        //**********************************************************************************
+        
+        //******ВВОД МАТРИЦЫ **************************************************************
         static void Vod(ref int[,] a, ref int[,] b, ref int n, ref int m, ref int n1, ref int m1)
         {
 
@@ -112,7 +117,7 @@ namespace l1_matr
                 }
 
         }
-
+        //******ФОРМИРОВАНИЕ МИНОРА МАТРИЦЫ********************************
         static void Minor (int [,] a, int n, ref int [,] p, int bi, int bj)
         {
             int k = 0, l; // пропуск переменной и строки
@@ -127,7 +132,9 @@ namespace l1_matr
                 }
             }
         }
-
+        //**************************************************************
+        
+        //*****Деление матриц*******************************************
         static int Dim (int [,] a, int n, int m, int d)
         {
             int k = 1 ;
@@ -158,6 +165,8 @@ namespace l1_matr
             }
             return d;
         }
+        
+        //************************************************************************************
         static void Menu(ref int[,] a, ref int[,] b, ref int n, ref int m, ref int n1, ref int m1)
         {
             int d ;
@@ -185,8 +194,7 @@ namespace l1_matr
                     }
                     break;
                 case 8 : return;
-                default: break;
-
+                default: break;          
             }
             Menu (ref a, ref b, ref n, ref m, ref n1, ref m1);
         }
