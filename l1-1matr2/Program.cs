@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace l1_matr
 {
@@ -114,18 +114,18 @@ namespace l1_matr
                 for (int j = 0; j < m; j++)
                 {
                     Console.Write($"a[{i}][{j}]=");
-                    a[i, j] = InputInt(int.MinValue)
+                    a[i, j] = InputInt(int.MinValue);
                 }
 
             Console.WriteLine("Введите размерность матрицы Б");
-            n1 = InputInt(0)
+            n1 = InputInt(0);
             m1 = InputInt(0);
             b = new int[n, m];
             for (int i = 0; i < n1; i++)
                 for (int j = 0; j < m1; j++)
                 {
                     Console.Write($"a[{i}][{j}]=");
-                    b[i, j] = InputInt(int.MinValue)
+                    b[i, j] = InputInt(int.MinValue);
                 }
 
         }
@@ -152,7 +152,7 @@ namespace l1_matr
             int k = 1 ;
             if (n !=m)
             {
-                Console.Write("Матрица не квадратная");
+                Console.WriteLine("Матрица не квадратная");
                 return 0;
             }
             int[,] p = new int[n, n];
@@ -170,7 +170,6 @@ namespace l1_matr
                 for (int i=0; i < n;i++)
                 {
                     Minor(a, n, ref p, i, 0);
-                    Vivod(p, a, m, m, n, n);
                     d += k * a[i, 0] * Dim(p, m, m, d);
                     k *= -1;
                 }
@@ -220,14 +219,14 @@ namespace l1_matr
         {
             int n, m, n1, m1;
             Console.WriteLine ("Введите размерность матрицы А");
-            n = Convert.ToInt32 (Console.ReadLine());
-            m = Convert.ToInt32 (Console.ReadLine());
+            n = InputInt(0);
+            m = InputInt(0);
             int[,] a = new int[n, m];
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < n; j++)
                 {
                     Console.Write ($"\na[{i}][{j}]=");
-                    a[i, j] = Convert.ToInt32 (Console.ReadLine());
+                    a[i, j] = InputInt(int.MinValue);
                 }
             for (int i = 0; i < n; i++)
             {
@@ -237,14 +236,14 @@ namespace l1_matr
                 Console.Write ("|");
             }
             Console.WriteLine ("\nВведите размерность матрицы Б");
-            n1 = Convert.ToInt32 (Console.ReadLine());
-            m1 = Convert.ToInt32 (Console.ReadLine());
+            n1 = InputInt(0);
+            m1 = InputInt(0);
             int[,] b = new int[n, m];
             for (int i = 0; i < n1; i++)
                 for (int j = 0; j < m1; j++)
                 {
                     Console.Write ($"\nb[{i}][{j}]=");
-                    b[i, j] = Convert.ToInt32 (Console.ReadLine());
+                    b[i, j] = InputInt(int.MinValue);
                 }
             for (int i = 0; i < n1; i++)
             {
