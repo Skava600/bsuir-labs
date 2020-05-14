@@ -1,9 +1,17 @@
-﻿using System;
+using System;
 using System.Text;
 using System.Linq;
+using System.Globalization;
 
 namespace ConsoleApp1
 {
+            /*" 1.Дана строка, состоящая из строчных 
+               "английских букв. Заменить в ней все буквы,стоящие после гласных,
+               " на следующие по алфавиту(z заменяется на a).
+               "2.В заданной строке поменять порядок слов на обратный
+               "(слова разделены пробелами)
+               "3.Дана строка, слова которой разделены пробелами.Распознать в ней слова
+               "в шестнадцатиричной системе счисления, и вывести их десятичный эквивалент*/
     class Program
     {
         static void Main(string[] args)
@@ -35,8 +43,21 @@ namespace ConsoleApp1
 
         static void Zad1()
         {
-            Console.WriteLine("Введите строку");
-            StringBuilder str = new StringBuilder(Console.ReadLine());
+            StringBuilder str;
+            bool Check;
+            do
+            {
+                Check = false;
+                Console.WriteLine("Введите строку");
+                str = new StringBuilder(Console.ReadLine());
+                for (int i = 0; i < str.Length; i++)
+                {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        if (str.ToString().Contains(j.ToString())) Check = true;
+                    }
+                }
+            } while (Check);
             char[] c = { 'a', 'y', 'o', 'u', 'e' };
             for (int i = 0; i < 5; i++)
             {
