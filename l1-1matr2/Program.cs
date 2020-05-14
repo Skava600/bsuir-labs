@@ -67,7 +67,7 @@ namespace l1_matr
         //****************************************************************
         
         //*****ВЫВОД МАТРИЦЫ***********************************************
-        static void Vivod(int[,] a, int[,] b, int n, int m, int n1, int m1)
+        static void OutputMatrix(int[,] a, int[,] b, int n, int m, int n1, int m1)
         {
             for (int i = 0; i < n; i++)
             {
@@ -90,30 +90,42 @@ namespace l1_matr
         }
         //**********************************************************************************
         
+        //****ПРОВЕРКА НА ВВОД**************************************************************
+        static int InputInt(int min)
+        {
+            int n;  
+            while (!int.TryParse(Console.ReadLine(), out n) || n <= min)
+            {
+                 Console.WriteLine($"Ошибка ввода! Введите целое число > {min}");
+            }
+            return n;
+        }
+        //************************************************************************************
+        
         //******ВВОД МАТРИЦЫ **************************************************************
-        static void Vod(ref int[,] a, ref int[,] b, ref int n, ref int m, ref int n1, ref int m1)
+        static void InputMatrix(ref int[,] a, ref int[,] b, ref int n, ref int m, ref int n1, ref int m1)
         {
 
             Console.WriteLine("\nВведите размерность матрицы А ");
-            n = Convert.ToInt32(Console.ReadLine());
-            m = Convert.ToInt32(Console.ReadLine());
+            n = InputInt(0);
+            m = InputInt(0);
             a = new int[n, m];
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < m; j++)
                 {
                     Console.Write($"a[{i}][{j}]=");
-                    a[i, j] = Convert.ToInt32(Console.ReadLine());
+                    a[i, j] = InputInt(int.MinValue)
                 }
 
             Console.WriteLine("Введите размерность матрицы Б");
-            n1 = Convert.ToInt32(Console.ReadLine());
-            m1 = Convert.ToInt32(Console.ReadLine());
+            n1 = InputInt(0)
+            m1 = InputInt(0);
             b = new int[n, m];
             for (int i = 0; i < n1; i++)
                 for (int j = 0; j < m1; j++)
                 {
                     Console.Write($"a[{i}][{j}]=");
-                    b[i, j] = Convert.ToInt32(Console.ReadLine());
+                    b[i, j] = InputInt(int.MinValue)
                 }
 
         }
@@ -173,11 +185,15 @@ namespace l1_matr
             Console.WriteLine("\nВыберите действие \n1.Ввод матриц\n2.Вывод матрицы\n3.Сложение\n" +
                 "4.Вычитание\n5.Умножение\n6.Определитель А\n7.Определитель B\n8.Выйти ");
             int x;
-            x = Convert.ToInt32(Console.ReadLine());
+            while (!int.TryParse(Console.ReadLine(), out x) || x <= 0 || x > 8)
+            {
+                 Console.WriteLine("Ошибка ввода! Введите целое число 0<x<9");
+            }
+            
             switch (x)
             {
-                case 1 : Vod (ref a, ref b, ref n, ref m, ref n1, ref m1); break;
-                case 2 : Vivod (a, b, n, m, n1, m1); break;
+                case 1 : InputMatrix (ref a, ref b, ref n, ref m, ref n1, ref m1); break;
+                case 2 : OutputMatrix (a, b, n, m, n1, m1); break;
                 case 3 : Plus (a, b, n, m, n1, m1, '+'); break;
                 case 4 : Plus (a, b, n, m, n1, m1, '-'); break;
                 case 5 : Mult (a, b, n, m, n1, m1); break;
