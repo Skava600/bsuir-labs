@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "Uf00CTbJCo35b/CfpoCoNVB9kjRWZ3shyWvKCesdgUtTnqh/LtaqTv3mOu96qlzbPHXduwtbv3eItZw47sPaQA==",
+  "success": true,
+  "projectFilePath": "C:\\ucheba\\2 semestr\\lab5-6\\lab6\\lab6.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\vladi\\.nuget\\packages\\microsoft.codeanalysis.fxcopanalyzers\\2.9.8\\microsoft.codeanalysis.fxcopanalyzers.2.9.8.nupkg.sha512",
+    "C:\\Users\\vladi\\.nuget\\packages\\microsoft.codeanalysis.versioncheckanalyzer\\2.9.8\\microsoft.codeanalysis.versioncheckanalyzer.2.9.8.nupkg.sha512",
+    "C:\\Users\\vladi\\.nuget\\packages\\microsoft.codequality.analyzers\\2.9.8\\microsoft.codequality.analyzers.2.9.8.nupkg.sha512",
+    "C:\\Users\\vladi\\.nuget\\packages\\microsoft.netcore.analyzers\\2.9.8\\microsoft.netcore.analyzers.2.9.8.nupkg.sha512",
+    "C:\\Users\\vladi\\.nuget\\packages\\microsoft.netframework.analyzers\\2.9.8\\microsoft.netframework.analyzers.2.9.8.nupkg.sha512"
+  ],
+  "logs": []
+}

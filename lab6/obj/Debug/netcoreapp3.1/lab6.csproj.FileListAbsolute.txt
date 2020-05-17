@@ -1,0 +1,13 @@
+C:\ucheba\2 semestr\lab5-6\lab3\bin\Debug\netcoreapp3.1\lab6.exe
+C:\ucheba\2 semestr\lab5-6\lab3\bin\Debug\netcoreapp3.1\lab6.deps.json
+C:\ucheba\2 semestr\lab5-6\lab3\bin\Debug\netcoreapp3.1\lab6.runtimeconfig.json
+C:\ucheba\2 semestr\lab5-6\lab3\bin\Debug\netcoreapp3.1\lab6.runtimeconfig.dev.json
+C:\ucheba\2 semestr\lab5-6\lab3\bin\Debug\netcoreapp3.1\lab6.dll
+C:\ucheba\2 semestr\lab5-6\lab3\bin\Debug\netcoreapp3.1\lab6.pdb
+C:\ucheba\2 semestr\lab5-6\lab3\obj\Debug\netcoreapp3.1\lab6.csprojAssemblyReference.cache
+C:\ucheba\2 semestr\lab5-6\lab3\obj\Debug\netcoreapp3.1\lab6.csproj.CoreCompileInputs.cache
+C:\ucheba\2 semestr\lab5-6\lab3\obj\Debug\netcoreapp3.1\lab6.AssemblyInfoInputs.cache
+C:\ucheba\2 semestr\lab5-6\lab3\obj\Debug\netcoreapp3.1\lab6.AssemblyInfo.cs
+C:\ucheba\2 semestr\lab5-6\lab3\obj\Debug\netcoreapp3.1\lab6.dll
+C:\ucheba\2 semestr\lab5-6\lab3\obj\Debug\netcoreapp3.1\lab6.pdb
+C:\ucheba\2 semestr\lab5-6\lab3\obj\Debug\netcoreapp3.1\lab6.genruntimeconfig.cache
