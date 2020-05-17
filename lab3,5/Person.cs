@@ -15,6 +15,7 @@ namespace lab3
         public Person()
         {
             Random rnd = new Random();
+            Age = rnd.Next(18,50);
             ID = SetId();
             Name = Names[rnd.Next(0, 12)];
         }
@@ -26,9 +27,12 @@ namespace lab3
         public virtual void  ShowInfo()
         {
             ShowName();
+            ShowAge();
             ShowID();
         }
         public void ShowName()=>     Console.WriteLine($"Мое имя {Name}");
+        
+        public void ShowAge() => Console.WriteLine($"Мне {Age}.");
 
         public void ShowID() => Console.WriteLine($"Мое ID  - {ID} ");
 
