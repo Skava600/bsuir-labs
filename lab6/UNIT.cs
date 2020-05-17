@@ -191,5 +191,4 @@ namespace lab3
             else return 0;
         }
     }
-
 }
