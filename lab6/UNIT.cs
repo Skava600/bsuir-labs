@@ -127,7 +127,7 @@ namespace lab3
             }
             else
             {
-                throw new Exception("Parametr should be of type Soldier");
+                throw new Exception("Parametr should be of type Unit");
             }
         }
        public static void Duel(Unit unit1, Unit unit2, List<Unit> army1, List<Unit> army2)
