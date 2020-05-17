@@ -30,7 +30,6 @@ namespace l1_matr
                 }
                 Console.Write("|");
             }
-
         }
         //******УМНОЖЕНИЕ МАТРИЦ*************************************
         static void Mult(int[,] a, int[,] b, int n, int m, int n1, int m1)
