@@ -3,7 +3,7 @@ using System.Text;
 using System.Linq;
 using System.Globalization;
 
-namespace ConsoleApp1
+namespace lab2
 {
             /*"1.Дана строка, состоящая из строчных 
                "английских букв. Заменить в ней все буквы,стоящие после гласных,
