@@ -1,7 +1,11 @@
-﻿using System;
+#define _INFOBATTLE  //    Remove define to see battle information(damage, speed and etc.)
+using System;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading;
 using System.Text;
+using Microsoft.VisualBasic.CompilerServices;
+
 
 namespace lab3
 {
@@ -23,6 +27,7 @@ namespace lab3
     //*****КЛАСС НОВОБРАНЦА***************
     public abstract class Unit : Person, IComparable
     {
+
         public static Random rnd = new Random();
         protected float HealthUnit { get; set; }
         protected float AttackUnit { get; set; }
@@ -30,7 +35,7 @@ namespace lab3
         protected float ArmourUnit { get; set; } 
         protected RangeUnit RangeUnit { get; set; }
         protected string TypeStr { get; set; }
-        public Type IntType { get; set; }
+        public Type IntType { get ; set; }
         protected float Speed
         {
             get
@@ -52,12 +57,9 @@ namespace lab3
             TypeStr = d;
             SpeedUnit = g * Speed;
         }
+        public void Salute(Unit u) => Console.WriteLine($"{TypeStr} {Name} Salute to {u.TypeStr} {u.Name}.");
         public void CleanPotato() =>   Console.WriteLine($"{TypeStr} {Name} cleaned potatoe.");
         public void ShowType() => Console.WriteLine($"Unit {TypeStr}.");
-        public int GetIntType()
-        {
-            return (int)IntType;
-        }
         public void ShowHealth() => Console.WriteLine($"Unit {TypeStr} {Name} has  {HealthUnit} hp");
         public void ShowAttack() => Console.WriteLine($"Unit {TypeStr} {Name} deal  {AttackUnit} damage");
         public void ShowSpeed() => Console.WriteLine($"Unit {TypeStr} {Name} has speed {SpeedUnit} m/s ");
@@ -78,40 +80,53 @@ namespace lab3
         public abstract void Train();//ЮНИТ ТРЕНИРУЕТСЯ И УВЕЛИЧИВАЕТ ХАР-КИ В ЗАВИСИМОСТИ ОТ ТИПА (ДО ОПР. МАКС ЧИСЛА ХАР-КИ)
         public virtual void ShowActionsUnit(List<Unit> army, int numUnit)
         {
-            if (army!= null)
+            if (army != null)
             {
                 Console.Clear();
                 int ch;
-                int chUnit;
-                Console.WriteLine("Enter Action :\n1.Train \n2.Show choosen unit.\n3.Clean Potatoe" +
-                       "\n4.Stand up on horse \n5.Duel.\n6.Exit");
-                while (!int.TryParse(Console.ReadLine(), out ch) || ch < 1 || ch > 6)
+                do
                 {
-                    Console.Write("Input Error! Enter  unsigned integer  before 7 ");
-                }
-                switch (ch)
-                {
-                    case 1: army[numUnit].Train(); army[numUnit].ShowInfo(); break;
-                    case 2: army[numUnit].ShowInfo(); break;
-                    case 3: army[numUnit].CleanPotato(); break;
-                    case 4:
-
-                        if (army[numUnit].TypeStr.Equals("Cavalry") || army[numUnit].TypeStr.Equals("Horse Archer"))
-                            //ЕСЛИ ЮНИТ - КАВАЛЕРИЯ ИЛИ КОННЫЙ ЛУЧНИК
-                            ((IHorse)army[numUnit]).StandUp();
-                        else Console.WriteLine("no Horse"); ; break;
-
-                    case 5:                          
-                            while (!int.TryParse(Console.ReadLine(), out chUnit) || chUnit < 0 ||
-                            chUnit > army.Count || chUnit == numUnit)
+                    Console.Clear();
+                    Console.WriteLine("Enter Action :\n1.Train \n2.Show choosen unit.\n3.Clean Potatoe" +
+                           "\n4.Stand up on horse \n5.Duel.\n6.Salute to allie.\n7.Exit");
+                    while (!int.TryParse(Console.ReadLine(), out ch) || ch < 1 || ch > 7)
+                    {
+                        Console.Write("Input Error! Enter  unsigned integer  before 7 ");
+                    }
+                    switch (ch)
+                    {
+                        case 1: army[numUnit].Train(); army[numUnit].ShowInfo(); break;
+                        case 2: army[numUnit].ShowInfo(); break;
+                        case 3: army[numUnit].CleanPotato(); break;
+                        case 4:
                             {
-                                Console.Write($"Input Error! Enter  unsigned integer  before {army.Count} ");
+                                if (army[numUnit].TypeStr.Equals("Cavalry") || army[numUnit].TypeStr.Equals("Horse Archer"))
+                                    ((IHorse)army[numUnit]).StandUp(); //ЕСЛИ ЮНИТ - КАВАЛЕРИЯ ИЛИ КОННЫЙ ЛУЧНИК
+                                else Console.WriteLine("no Horse");
+                                break;
                             }
-                        Duel(army[numUnit], army[chUnit], army, army);
-                            break;
-                    default: break;
-                }
+                        case 5:
+                            {
+                                if (army.Count != 1)
+                                {
+                                    Console.WriteLine("Choose unit with whom duel.");
+                                    Duel(army[numUnit], army[Program.ChooseArmyUnit(army, numUnit)], army, army);
+                                }
+                                else Console.WriteLine("Not enough troops");
+                                break;
+                            }
+                        case 6:
+                            {
+                                if (army.Count != 1) army[numUnit].Salute(army[Program.ChooseArmyUnit(army, numUnit)]);
+                                else Console.WriteLine("No unit to salute");
+                                break;
+                            }
+                        default: break;
+                    }
+                    Console.ReadLine();
+                } while (ch != 7);
             }
+              
             
         }
         public int CompareTo(object obj)
@@ -127,7 +142,7 @@ namespace lab3
             }
             else
             {
-                throw new Exception("Parametr should be of type Unit");
+                throw new Exception("Parametr should be of type Soldier");
             }
         }
        public static void Duel(Unit unit1, Unit unit2, List<Unit> army1, List<Unit> army2)
@@ -143,27 +158,36 @@ namespace lab3
                     if ((int)unit1.RangeUnit >= distance)                    //ЕСЛИ ЮНИТ ДОСТАЕТ ДО ВРАГА ТО НАНОСИТ
                     {                                                                       //ДАМАГ
                         curHp2 -= (1 - unit2.ArmourUnit) * unit1.AttackUnit;
+#if !_INFOBATTLE
                         Console.WriteLine($"{unit1.Name} dealed {unit1.AttackUnit * (1 - unit2.ArmourUnit)} damage." +
                             $"{unit2.Name}'s Health - {curHp2}.");
+#endif
                     }
                     else //ЕСЛИ НЕТ ТО СОКРАЩАЕТ ДИСТАНЦИЮ НА СВОЮ СКОРОСТЬ
                     {
                         distance -= unit1.SpeedUnit;
                         if (distance < 0) distance = 0;
+#if !_INFOBATTLE
                         Console.WriteLine($"{unit1.Name} ran {unit1.SpeedUnit}.Distance now - {distance} metres.");
+#endif
                     }
+
                     if (curHp2 <= 0) break;
                     if ((int)unit2.RangeUnit >= distance)
                     {
                         curHp1 -= (1 - unit1.ArmourUnit) * unit2.AttackUnit;
+#if !_INFOBATTLE
                         Console.WriteLine($"{unit2.Name} dealed {unit2.AttackUnit * (1 - unit1.ArmourUnit)} damage." +
-                            $"{unit1.Name}'s Health - {curHp1}.");
+                        $"{unit1.Name}'s Health - {curHp1}.");
+#endif
                     }                       
                     else
                     {
                         distance -= unit2.SpeedUnit;
                         if (distance < 0) distance = 0;
+#if !_INFOBATTLE
                         Console.WriteLine($"{unit2.Name} ran {unit2.SpeedUnit}. Distance now - {distance}.");
+#endif
                     }
                     
                 }
@@ -177,6 +201,8 @@ namespace lab3
                     Console.WriteLine($"Victory of {unit1.Name}.");
                     army2.Remove(unit2);
                 }
+                 Sound.PlaySound("G:\\kill.wav", new System.IntPtr(), PlaySoundFlags.SND_SYNC | PlaySoundFlags.SND_ASYNC);
+                Thread.Sleep(1000);
             }
             else throw new Exception("Null exception ");
 
@@ -191,4 +217,5 @@ namespace lab3
             else return 0;
         }
     }
+
 }
