@@ -57,9 +57,10 @@ namespace lab3
         public abstract void Train();//ЮНИТ ТРЕНИРУЕТСЯ И УВЕЛИЧИВАЕТ ХАР-КИ В ЗАВИСИМОСТИ ОТ ТИПА (ДО ОПР. МАКС ЧИСЛА ХАР-КИ)
         public virtual void ShowActionsUnit(Army army, int numUnit)
         {
-            //Console.ReadLine();
-            Console.Clear();
             int ch;
+            do
+            {
+            Console.Clear();
             Console.WriteLine("Введите действие:\n1.Тренировка \n2.Вывести выбранного юнита.\n3.Почистить картошку " +
                    "\n4.Встать на дыбы\n5.выход");
             while (!int.TryParse(Console.ReadLine(), out ch) || ch < 1 || ch > 5)
@@ -76,6 +77,8 @@ namespace lab3
                             ((IHorse)army[numUnit]).StandUp();
                         else Console.WriteLine("Нет лошади");break;
             }
+            Console.ReadLine();
+            }while(ch != 5);
         } 
         
         
