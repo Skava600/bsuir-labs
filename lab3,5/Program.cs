@@ -47,8 +47,8 @@ namespace lab3
                 Console.Clear();
                 Console.WriteLine("Введите действие:\n1.Добавить Юнита c предустановленными " +
                     "характеристиками.\n2.Действия с Выбранным юнимтом." +
-                    "\n3.Размер армии.\n4.Показать типы юнитов в армии.\n5.Сортировать");
-                while (!int.TryParse(Console.ReadLine(), out ch) || ch < 1 || ch > 6)
+                    "\n3.Размер армии.\n4.Показать типы юнитов в армии.\n5.Выход");
+                while (!int.TryParse(Console.ReadLine(), out ch) || ch < 1 || ch > 5)
                 {
                     Console.Write("Ошибка ввода! Введите целое  положительное число до 7 ");
                 }
@@ -62,10 +62,10 @@ namespace lab3
                             break;
                     case 3: Console.WriteLine($"Размер армии - {Army.size}"); break;
                     case 4: army1.ShowArmyTypes();break;
-
+                    default : break;
                 }
                 Console.ReadLine();
-            } while (ch != 6);
+            } while (ch != 5);
         }
     }
 }
