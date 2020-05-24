@@ -237,7 +237,7 @@ namespace l1_matr
             Console.WriteLine ("\nВведите размерность матрицы Б n на m");
             n1 = InputInt(0);
             m1 = InputInt(0);
-            int[,] b = new int[n, m];
+            int[,] b = new int[n1, m1];
             for (int i = 0; i < n1; i++)
                 for (int j = 0; j < m1; j++)
                 {
