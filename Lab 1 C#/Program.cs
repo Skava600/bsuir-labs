@@ -217,12 +217,12 @@ namespace l1_matr
         static void Main (string[] args)
         {
             int n, m, n1, m1;
-            Console.WriteLine ("Введите размерность матрицы А");
+            Console.WriteLine ("Введите размерность матрицы А n на m");
             n = InputInt(0);
             m = InputInt(0);
             int[,] a = new int[n, m];
             for (int i = 0; i < n; i++)
-                for (int j = 0; j < n; j++)
+                for (int j = 0; j < m; j++)
                 {
                     Console.Write ($"\na[{i}][{j}]=");
                     a[i, j] = InputInt(int.MinValue);
@@ -230,11 +230,11 @@ namespace l1_matr
             for (int i = 0; i < n; i++)
             {
                 Console.Write ("\n|\t");
-                for (int j = 0; j < n; j++)
+                for (int j = 0; j < m; j++)
                     Console.Write ($"{a[i, j]} \t");
                 Console.Write ("|");
             }
-            Console.WriteLine ("\nВведите размерность матрицы Б");
+            Console.WriteLine ("\nВведите размерность матрицы Б n на m");
             n1 = InputInt(0);
             m1 = InputInt(0);
             int[,] b = new int[n, m];
