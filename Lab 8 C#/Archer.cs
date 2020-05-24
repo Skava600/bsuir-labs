@@ -21,7 +21,6 @@ namespace lab3
         }
         public Archer(float a, float b, float c, float g, string d) : base(a, b, c, g, d)
         {
-
         }
     }
 }
