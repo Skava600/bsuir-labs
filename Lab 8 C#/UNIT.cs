@@ -222,12 +222,12 @@ namespace lab3
                     unit1.WhenDied(unit1);
                     army1.Remove(unit1);
                 }
-                else
+                else if(curHp2 <= 0)
                 {
                     unit1.Win += (unit1) => Program.DisplayYelMessage($"Victory of {unit1.Name}.");
                     unit2.Died += (unit2) => Program.DisplayRedMessage($"{unit2.TypeStr} {unit2.Name} died in battle ");//lambda expression
-                    unit1.WhenDied(unit1);
-                    unit2.WhenWin(unit2);
+                    unit2.WhenDied(unit1);
+                    unit1.WhenWin(unit2);
                     army2.Remove(unit2);
                 }
                  Sound.PlaySound("G:\\kill.wav", new System.IntPtr(), Sound.PlaySoundFlags.SND_SYNC | Sound.PlaySoundFlags.SND_ASYNC); 
