@@ -1,0 +1,6 @@
+G:\ucheba\3 semestr\ISP\LAB2\bin\Release\LAB2.exe.config
+G:\ucheba\3 semestr\ISP\LAB2\bin\Release\LAB2.exe
+G:\ucheba\3 semestr\ISP\LAB2\bin\Release\LAB2.pdb
+G:\ucheba\3 semestr\ISP\LAB2\obj\Release\LAB2.csproj.CoreCompileInputs.cache
+G:\ucheba\3 semestr\ISP\LAB2\obj\Release\LAB2.exe
+G:\ucheba\3 semestr\ISP\LAB2\obj\Release\LAB2.pdb
