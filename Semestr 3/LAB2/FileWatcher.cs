@@ -32,10 +32,10 @@ namespace LAB2
             string archiveDirectory;
             public Logger()
             {
-                watcher = new FileSystemWatcher("C:\\FileWatcher\\SourceDirectory");
+                watcher = new FileSystemWatcher("C:\\FileWatcher\\SourceDirectory");// Директория мониторинга
                 watcher.Filter = "*.txt";
-                targetDirectory = "C:\\FileWatcher\\TargetDirectory";
-                archiveDirectory = $"{targetDirectory}\\archive";
+                targetDirectory = "C:\\FileWatcher\\TargetDirectory"; // Директория с расшифрованным файлом
+                archiveDirectory = $"{targetDirectory}\\archive"; //Директория с зашифрованными архивами
                 Directory.CreateDirectory(archiveDirectory);
                 watcher.Created += Watcher_Created;
             }
