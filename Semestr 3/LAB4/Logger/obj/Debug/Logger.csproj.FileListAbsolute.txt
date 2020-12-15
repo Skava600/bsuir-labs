@@ -1,0 +1,13 @@
+C:\ucheba\3 semestr\C SHARP\LAB4\Logger\bin\Debug\Logger.dll
+C:\ucheba\3 semestr\C SHARP\LAB4\Logger\bin\Debug\Logger.pdb
+C:\ucheba\3 semestr\C SHARP\LAB4\Logger\bin\Debug\Conveter.dll
+C:\ucheba\3 semestr\C SHARP\LAB4\Logger\bin\Debug\DataAccessLayer.dll
+C:\ucheba\3 semestr\C SHARP\LAB4\Logger\bin\Debug\OptionsManager.dll
+C:\ucheba\3 semestr\C SHARP\LAB4\Logger\bin\Debug\Conveter.pdb
+C:\ucheba\3 semestr\C SHARP\LAB4\Logger\bin\Debug\DataAccessLayer.pdb
+C:\ucheba\3 semestr\C SHARP\LAB4\Logger\bin\Debug\OptionsManager.pdb
+C:\ucheba\3 semestr\C SHARP\LAB4\Logger\obj\Debug\Logger.csprojAssemblyReference.cache
+C:\ucheba\3 semestr\C SHARP\LAB4\Logger\obj\Debug\Logger.csproj.CoreCompileInputs.cache
+C:\ucheba\3 semestr\C SHARP\LAB4\Logger\obj\Debug\Logger.csproj.CopyComplete
+C:\ucheba\3 semestr\C SHARP\LAB4\Logger\obj\Debug\Logger.dll
+C:\ucheba\3 semestr\C SHARP\LAB4\Logger\obj\Debug\Logger.pdb

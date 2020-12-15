@@ -1,0 +1,9 @@
+C:\ucheba\3 semestr\C SHARP\LAB4\OptionsManager\bin\Debug\OptionsManager.dll
+C:\ucheba\3 semestr\C SHARP\LAB4\OptionsManager\bin\Debug\OptionsManager.pdb
+C:\ucheba\3 semestr\C SHARP\LAB4\OptionsManager\bin\Debug\Conveter.dll
+C:\ucheba\3 semestr\C SHARP\LAB4\OptionsManager\bin\Debug\Conveter.pdb
+C:\ucheba\3 semestr\C SHARP\LAB4\OptionsManager\obj\Debug\OptionsManager.csprojAssemblyReference.cache
+C:\ucheba\3 semestr\C SHARP\LAB4\OptionsManager\obj\Debug\OptionsManager.csproj.CoreCompileInputs.cache
+C:\ucheba\3 semestr\C SHARP\LAB4\OptionsManager\obj\Debug\OptionsManager.csproj.CopyComplete
+C:\ucheba\3 semestr\C SHARP\LAB4\OptionsManager\obj\Debug\OptionsManager.dll
+C:\ucheba\3 semestr\C SHARP\LAB4\OptionsManager\obj\Debug\OptionsManager.pdb

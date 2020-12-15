@@ -1,0 +1,16 @@
+C:\ucheba\3 semestr\C SHARP\LAB4\XMLGenerator\bin\Debug\XMLGenerator.dll
+C:\ucheba\3 semestr\C SHARP\LAB4\XMLGenerator\bin\Debug\XMLGenerator.pdb
+C:\ucheba\3 semestr\C SHARP\LAB4\XMLGenerator\bin\Debug\DataAccessLayer.dll
+C:\ucheba\3 semestr\C SHARP\LAB4\XMLGenerator\bin\Debug\LAB2.exe
+C:\ucheba\3 semestr\C SHARP\LAB4\XMLGenerator\bin\Debug\Conveter.dll
+C:\ucheba\3 semestr\C SHARP\LAB4\XMLGenerator\bin\Debug\LAB2.pdb
+C:\ucheba\3 semestr\C SHARP\LAB4\XMLGenerator\bin\Debug\LAB2.exe.config
+C:\ucheba\3 semestr\C SHARP\LAB4\XMLGenerator\bin\Debug\DataAccessLayer.pdb
+C:\ucheba\3 semestr\C SHARP\LAB4\XMLGenerator\bin\Debug\Conveter.pdb
+C:\ucheba\3 semestr\C SHARP\LAB4\XMLGenerator\obj\Debug\XMLGenerator.csprojAssemblyReference.cache
+C:\ucheba\3 semestr\C SHARP\LAB4\XMLGenerator\obj\Debug\XMLGenerator.csproj.CoreCompileInputs.cache
+C:\ucheba\3 semestr\C SHARP\LAB4\XMLGenerator\obj\Debug\XMLGenerator.csproj.CopyComplete
+C:\ucheba\3 semestr\C SHARP\LAB4\XMLGenerator\obj\Debug\XMLGenerator.dll
+C:\ucheba\3 semestr\C SHARP\LAB4\XMLGenerator\obj\Debug\XMLGenerator.pdb
+C:\ucheba\3 semestr\C SHARP\LAB4\XMLGenerator\bin\Debug\OptionsManager.dll
+C:\ucheba\3 semestr\C SHARP\LAB4\XMLGenerator\bin\Debug\OptionsManager.pdb
