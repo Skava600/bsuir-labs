@@ -51,26 +51,12 @@ namespace LAB2.Parsers
 
                     key = match.Groups[1].Value;
                     value = match.Groups[2].Value;
-                    using (StreamWriter writer = new StreamWriter(@"C:\FileWatchers\TargetDirectory\chel.txt", true))
-                    {
-                        writer.WriteLine($"if1 {typeof(T)} value - {value} key - {key}");
-                        writer.Flush();
-                    }
-                    PropertyInfo info = type.GetProperty(key);
-                    try
-                    {
-                        
-                        info.SetValue(ans, typeof(Converter).GetMethod("DeserializeJson")
-                       .MakeGenericMethod(new Type[] { info.PropertyType }).Invoke(null, new object[] { value }));
-                    }
-                    catch(Exception ex)
-                    {
-                        using (StreamWriter writer = new StreamWriter(@"C:\FileWatchers\TargetDirectory\Filelog.txt", true))
-                        {
-                            writer.WriteLine(ex + " error in getproperty- " + DateTime.Now.ToString("yyyy.mm.dd HH:mm:ss"));
-                            writer.Flush();
-                        }
-                    }
+                    
+                       
+                    info.SetValue(ans, typeof(Converter).GetMethod("DeserializeJson")
+                    MakeGenericMethod(new Type[] { info.PropertyType }).Invoke(null, new object[] { value }));
+                    
+                   
                    
                 }
                 else if (simple.IsMatch(option))
@@ -79,11 +65,7 @@ namespace LAB2.Parsers
 
                     key = match.Groups[1].Value;
                     value = match.Groups[2].Value;
-                    using (StreamWriter writer = new StreamWriter(@"C:\FileWatchers\TargetDirectory\chel.txt", true))
-                    {
-                        writer.WriteLine($"if2 {typeof(T)}value - {value} key - {key}");
-                        writer.Flush();
-                    }
+                   
                     
                     PropertyInfo info = type.GetProperty(key);
 
