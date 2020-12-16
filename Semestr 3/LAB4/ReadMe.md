@@ -7,5 +7,5 @@
 Слой работы с нашей бд. Позволяет нам извлекать из бд и формировать новый класс Human, который включает в себя 6 классов
 4. Converter (IParser)
 Универсальный парсер, парсит XML и Json. T DeserializeJson(string), T DeserializeXML(string) - методы класса Converter для преобразования JSON или XML.
-5.Logger записывает логи в новую базу данных dbo.logs
-6.XMLgenerator берет list<human> и преобразует в xml файл при этом кидая его в папку SourceDirectory
+5. Logger записывает логи в новую базу данных dbo.logs
+6. XMLgenerator берет list<human> и преобразует в xml файл при этом кидая его в папку SourceDirectory
