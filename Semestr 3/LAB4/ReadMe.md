@@ -1,0 +1,8 @@
+1. FileWatcher
+Создан в рамках третьей лабораторной изменный фильтер с txt на xml.
+2. DataAccessLayer : IDataAccessLayer
+Позволяет вытаскивать из неё данные любой таблицы,  с помощью универсального метода обращения к хранимой процедуре и получения данных из таблиц
+3. ServiceLayer : IServiceLayer
+Слой работы с нашей бд. Позволяет нам извлекать из бд и формировать новый класс Human, который включает в себя 6 классов
+4. Converter (IParser)
+Универсальный парсер, парсит XML и Json. T DeserializeJson(string), T DeserializeXML(string) - методы класса Converter для преобразования JSON или XML.
