@@ -1,6 +1,6 @@
 Видео с работой программой - https://drive.google.com/file/d/1o8rGM0C5Aj_n3M3SLWp43cF5ll5cZeEj/view?usp=sharing
-1. FileWatcher
-Создан в рамках третьей лабораторной изменный фильтер с txt на xml.
+1. (LAB3)FileWatcher
+Создан в рамках третьей лабораторной с изменным фильтром реагирования с txt на xml.Находится в другом репозитории https://github.com/Skava600/labs-c-sharp/tree/master/Semestr%203/LAB3
 2. DataAccessLayer : IDataAccessLayer
 Позволяет вытаскивать из неё данные любой таблицы,  с помощью универсального метода обращения к хранимой процедуре и получения данных из таблиц
 3. ServiceLayer : IServiceLayer
