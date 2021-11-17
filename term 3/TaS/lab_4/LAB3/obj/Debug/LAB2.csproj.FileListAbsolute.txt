@@ -1,0 +1,7 @@
+G:\ucheba\3 semestr\ISP\LAB2\bin\Debug\LAB2.exe.config
+G:\ucheba\3 semestr\ISP\LAB2\bin\Debug\LAB2.exe
+G:\ucheba\3 semestr\ISP\LAB2\bin\Debug\LAB2.pdb
+G:\ucheba\3 semestr\ISP\LAB2\obj\Debug\LAB2.csprojAssemblyReference.cache
+G:\ucheba\3 semestr\ISP\LAB2\obj\Debug\LAB2.csproj.CoreCompileInputs.cache
+G:\ucheba\3 semestr\ISP\LAB2\obj\Debug\LAB2.exe
+G:\ucheba\3 semestr\ISP\LAB2\obj\Debug\LAB2.pdb
