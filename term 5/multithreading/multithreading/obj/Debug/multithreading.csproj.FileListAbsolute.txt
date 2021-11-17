@@ -1,0 +1,10 @@
+C:\study\bsuir-labs\bsuir-labs\term 5\multithreading\multithreading\bin\Debug\multithreading.exe.config
+C:\study\bsuir-labs\bsuir-labs\term 5\multithreading\multithreading\bin\Debug\multithreading.exe
+C:\study\bsuir-labs\bsuir-labs\term 5\multithreading\multithreading\bin\Debug\multithreading.pdb
+C:\study\bsuir-labs\bsuir-labs\term 5\multithreading\multithreading\obj\Debug\multithreading.csproj.AssemblyReference.cache
+C:\study\bsuir-labs\bsuir-labs\term 5\multithreading\multithreading\obj\Debug\multithreading.Form1.resources
+C:\study\bsuir-labs\bsuir-labs\term 5\multithreading\multithreading\obj\Debug\multithreading.Properties.Resources.resources
+C:\study\bsuir-labs\bsuir-labs\term 5\multithreading\multithreading\obj\Debug\multithreading.csproj.GenerateResource.cache
+C:\study\bsuir-labs\bsuir-labs\term 5\multithreading\multithreading\obj\Debug\multithreading.csproj.CoreCompileInputs.cache
+C:\study\bsuir-labs\bsuir-labs\term 5\multithreading\multithreading\obj\Debug\multithreading.exe
+C:\study\bsuir-labs\bsuir-labs\term 5\multithreading\multithreading\obj\Debug\multithreading.pdb
