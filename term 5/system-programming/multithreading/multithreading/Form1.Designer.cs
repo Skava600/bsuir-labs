@@ -1,4 +1,4 @@
-﻿namespace multithreading
+﻿namespace Multithreading
 {
     partial class Form1
     {
