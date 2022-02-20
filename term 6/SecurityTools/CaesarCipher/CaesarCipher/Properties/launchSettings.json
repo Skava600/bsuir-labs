@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CaesarCipher": {
+      "commandName": "Project",
+      "commandLineArgs": "--type=vigenere --key=lemon --action=dec --alphabet=az --source=source.txt --output=output.txt"
+    }
+  }
+}
