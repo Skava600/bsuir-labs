@@ -1,0 +1,91 @@
+#!/usr/bin/bash
+moves=(1 2 3 4 5 6 7 8 9)
+isPlaying=true
+player1='X'
+player2='0'
+turn=1
+
+PrintBoard()
+{
+ clear
+ echo "${moves[0]} ${moves[1]} ${moves[2]}
+${moves[3]} ${moves[4]} ${moves[5]}
+${moves[6]} ${moves[7]} ${moves[8]}"
+}
+
+MovePlayer()
+{
+ if [[ $(($turn % 2)) == 0 ]]
+ then
+  echo "Player's 2 turn."
+  move=$player2
+ else
+  echo "Player's 1 turn."
+  move=$player1
+ fi 
+
+ read position
+ space=${moves[($position - 1)]} 
+
+ if  [[ ! $position =~ ^[1-9]$ ]] || [[ ! $space =~ ^[1-9]$ ]]
+ then
+  echo 'Wrong position.'
+  MovePlayer
+ else
+  echo $move
+  moves[($position - 1)]=$move
+  ((turn++))
+ fi
+ space=${moves[($position-1)]}
+}
+
+CheckLine()
+{
+ if [[ ${moves[$1]} == ${moves[$2]} ]] && [[ ${moves[$2]} == ${moves[$3]} ]]
+ then
+  isPlaying=false
+  if [ ${moves[$1]} == 'X' ]
+  then 
+   echo "Player 1 wins."; return
+  else
+    echo "Player 2 wins."; return;
+  fi
+ fi
+
+ 
+}
+
+CheckWinner()
+{
+ if [ $isPlaying == false ]; then return; fi
+ CheckLine 0 1 2
+ if [ $isPlaying == false ]; then return; fi
+ CheckLine 3 4 5
+ if [ $isPlaying == false ]; then return; fi
+ CheckLine 6 7 8
+ if [ $isPlaying == false ]; then return; fi
+ CheckLine 0 4 8
+ if [ $isPlaying == false ]; then return; fi
+ CheckLine 2 4 6
+ if [ $isPlaying == false ]; then return; fi
+ CheckLine 0 3 6
+ if [ $isPlaying == false ]; then return; fi
+ CheckLine 1 4 7
+ if [ $isPlaying == false ]; then return; fi
+ CheckLine 2 5 8
+ if [ $isPlaying == false ]; then return; fi
+ if [ $turn -ge 9 ] 
+ then 
+  $isPlaying=fasle; echo "It's a draw."; fi
+
+
+}
+
+PrintBoard
+while $isPlaying
+do
+ MovePlayer
+ PrintBoard
+ CheckWinner
+done
+
