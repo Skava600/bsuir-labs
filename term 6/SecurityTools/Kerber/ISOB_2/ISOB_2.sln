@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32203.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ISOB_2", "ISOB_2.csproj", "{EF4E96C8-ACD1-47CF-BF53-85F6EF32E4B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISOB_2Client", "..\ISOB_2Client\ISOB_2Client.csproj", "{23D34DAA-6AA4-498B-9200-2EB7FF435C12}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF4E96C8-ACD1-47CF-BF53-85F6EF32E4B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF4E96C8-ACD1-47CF-BF53-85F6EF32E4B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF4E96C8-ACD1-47CF-BF53-85F6EF32E4B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF4E96C8-ACD1-47CF-BF53-85F6EF32E4B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23D34DAA-6AA4-498B-9200-2EB7FF435C12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23D34DAA-6AA4-498B-9200-2EB7FF435C12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23D34DAA-6AA4-498B-9200-2EB7FF435C12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23D34DAA-6AA4-498B-9200-2EB7FF435C12}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D07B9FF8-D4F2-44A2-83E1-70EAAC151F2D}
+	EndGlobalSection
+EndGlobal
