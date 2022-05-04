@@ -1,5 +1,0 @@
-Username:skava
-time: 16:20:13, date: 22-04-2022
-current location: /home/skava/bsuir-labs/term 6/OSaE/lab1
-Count of processes : 270
-Time of running system : up 3 hours, 24 minutes
