@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AeroWizard" Version="2.3.1" />
+    <PackageReference Include="Equin.ApplicationFramework.BindingListView" Version="1.4.5222.35545" />
+    <PackageReference Include="FontAwesome" Version="4.7.0" />
+    <PackageReference Include="GroupControls" Version="1.9.0" />
+    <PackageReference Include="Syncfusion.Grid.Grouping.Windows" Version="20.1.0.52" />
+    <PackageReference Include="Syncfusion.Grid.Windows" Version="20.1.0.52" />
+    <PackageReference Include="Syncfusion.SfListView.WinForms" Version="20.1.0.52" />
+    <PackageReference Include="Syncfusion.Tools.Windows" Version="20.1.0.52" />
+    <PackageReference Include="TaskScheduler" Version="2.10.1" />
+    <PackageReference Include="TaskSchedulerEditor" Version="2.10.1" />
+    <PackageReference Include="TimeSpan2" Version="2.4.2" />
+    <PackageReference Include="Tulpep.ActiveDirectoryObjectPicker" Version="3.0.11" />
+  </ItemGroup>
+
+</Project>
