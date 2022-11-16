@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32427.441
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomVariablesCore", "RandomVariables\RandomVariablesCore.csproj", "{42846E74-F67F-4AF8-9ACD-71E66E803058}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomVariableWpf", "RandomVariableWpf\RandomVariableWpf.csproj", "{FD8BFA07-2ADC-43B1-B3A4-1371DB65199C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{42846E74-F67F-4AF8-9ACD-71E66E803058}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42846E74-F67F-4AF8-9ACD-71E66E803058}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42846E74-F67F-4AF8-9ACD-71E66E803058}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42846E74-F67F-4AF8-9ACD-71E66E803058}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD8BFA07-2ADC-43B1-B3A4-1371DB65199C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD8BFA07-2ADC-43B1-B3A4-1371DB65199C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD8BFA07-2ADC-43B1-B3A4-1371DB65199C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD8BFA07-2ADC-43B1-B3A4-1371DB65199C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {02B3E562-6BAC-4EBB-A89E-476F6D143461}
+	EndGlobalSection
+EndGlobal
