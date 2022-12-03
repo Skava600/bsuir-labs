@@ -8,11 +8,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="arrow.png" />
+    <None Remove="down+arrow+download+icon-1320185738770602413.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="devexpress.wpf.charts" Version="22.1.6" />
     <PackageReference Include="Syncfusion.SfChart.WPF" Version="20.3.0.50" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\RandomEvents\RandomEvents.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="arrow.png" />
+    <Resource Include="down+arrow+download+icon-1320185738770602413.png" />
   </ItemGroup>
 
 </Project>

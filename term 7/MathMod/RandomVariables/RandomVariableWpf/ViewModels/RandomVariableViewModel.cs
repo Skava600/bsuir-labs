@@ -14,13 +14,24 @@ namespace RandomVariableWpf.ViewModels
     internal class RandomVariableViewModel : INotifyPropertyChanged
     {
 
-        private ObservableCollection<TaskModel> histData { get; set; } = new ObservableCollection<TaskModel>();
-
-        public ObservableCollection<TaskModel> HistData { 
-            get { return histData; } 
+        private ObservableCollection<double> uniformData { get; set; } = new ObservableCollection<double>();
+        public int Intervals {get;} = 30;
+        public ObservableCollection<double> UniformData { 
+            get { return uniformData; } 
             set { 
-                histData = value; 
+                uniformData = value; 
                 OnPropertyChanged(); }  }
+
+        private ObservableCollection<TaskModel> negBinData { get; set; } = new ObservableCollection<TaskModel>();
+        public ObservableCollection<TaskModel> NegBinData
+        {
+            get { return negBinData; }
+            set
+            {
+                negBinData = value;
+                OnPropertyChanged();
+            }
+        }
 
 
         public event PropertyChangedEventHandler? PropertyChanged;

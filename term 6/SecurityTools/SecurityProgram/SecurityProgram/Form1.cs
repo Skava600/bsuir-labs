@@ -76,7 +76,7 @@ namespace SecurityProgram
                 if (CompareHash(mD5.ComputeHash(Encoding.ASCII.GetBytes(login)), mD5.ComputeHash(Encoding.ASCII.GetBytes(users[userIndex].Login))) &&
                     CompareHash(mD5.ComputeHash(Encoding.ASCII.GetBytes(password)), mD5.ComputeHash(Encoding.ASCII.GetBytes(users[userIndex].Password))))
                 {
-                    authSafety = "Unsafe";
+                    authSafety = "safe";
                 }
                 else
                 {

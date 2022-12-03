@@ -4,57 +4,145 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vms="clr-namespace:RandomVariableWpf.ViewModels"
-        xmlns:local="clr-namespace:RandomVariableWpf"
+        xmlns:local="clr-namespace:RandomVariableWpf" xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
         x:Class="RandomVariableWpf.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="447" Width="972">
+        Title="MainWindow" Height="516" Width="972">
     <Window.DataContext>
         <vms:RandomVariableViewModel/>
     </Window.DataContext>
     <Grid>
-        <TabControl>
+        <TabControl >
             <TabItem Header="First Task">
                 <Grid Background="#FFE5E5E5" ShowGridLines="True">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <syncfusion:SfChart Grid.Row="0" Grid.Column="0">
-                        <syncfusion:SfChart.PrimaryAxis>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <dxc:ChartControl x:Name="chartControl" Grid.Row="0">
+                        <dxc:ChartControl.Titles>
+                            <dxc:Title HorizontalAlignment="Center" 
+                   Content="Histogram"/>
+                        </dxc:ChartControl.Titles>
+                        <dxc:XYDiagram2D>
+                            <dxc:XYDiagram2D.AxisX>
+                                <dxc:AxisX2D Name="primaryAxisX" Visible="True">
+                                    <dxc:AxisX2D.WholeRange>
+                                        <dxc:Range
+                                    SideMarginsValue="0" />
+                                    </dxc:AxisX2D.WholeRange>
+                                    <dxc:AxisX2D.NumericScaleOptions>
+                                        <dxc:CountIntervalNumericScaleOptions
+                                    Count="{Binding Intervals}"
+                                    GridLayoutMode="GridShiftedLabelCentered"
+                                    Pattern="{}{OB}{A1:F2}, {A2:F2}{CB}" />
+                                    </dxc:AxisX2D.NumericScaleOptions>
+                                </dxc:AxisX2D>
+                            </dxc:XYDiagram2D.AxisX>
 
-                            <syncfusion:NumericalAxis Interval="1" Header="Interval" />
+                            <dxc:XYDiagram2D.SecondaryAxesX>
+                                <dxc:SecondaryAxisX2D Name="secondaryAxisX" Visible="False">
+                                    <dxc:SecondaryAxisX2D.NumericScaleOptions>
+                                        <dxc:ContinuousNumericScaleOptions />
+                                    </dxc:SecondaryAxisX2D.NumericScaleOptions>
+                                    <dxc:SecondaryAxisX2D.WholeRange>
+                                        <dxc:Range SideMarginsValue="0" />
+                                    </dxc:SecondaryAxisX2D.WholeRange>
+                                </dxc:SecondaryAxisX2D>
+                            </dxc:XYDiagram2D.SecondaryAxesX>
 
-                        </syncfusion:SfChart.PrimaryAxis>
+                            <dxc:XYDiagram2D.SecondaryAxesY>
+                                <dxc:SecondaryAxisY2D Name="secondaryAxisY" />
+                            </dxc:XYDiagram2D.SecondaryAxesY>
 
-                        <syncfusion:SfChart.SecondaryAxis>
+                            <dxc:BarStackedSeries2D
+                            AggregateFunction="Histogram"
+                            ArgumentScaleType="Numerical"
+                            BarWidth="1"
+                            DataSource="{Binding UniformData}"
+                            DisplayName="Histogram" />
 
-                            <syncfusion:NumericalAxis Interval="1" Header="Frequency" Minimum ="0" Maximum="10000"/>
-
-                        </syncfusion:SfChart.SecondaryAxis>
-                        <syncfusion:HistogramSeries x:Name="histogramSeries" 
-
-                    ShowNormalDistributionCurve="False"
-
-                    Interior="LightSkyBlue"
-
-                    ItemsSource="{Binding HistData}"
-
-                    XBindingPath="Index" 
-
-                    YBindingPath="Hits" 
-                                                    HistogramInterval="5"/>  
-                    </syncfusion:SfChart>
-                    <Grid Grid.Row="0" Grid.Column="1">
+                        </dxc:XYDiagram2D>
+                    </dxc:ChartControl>
+                    <Grid Grid.Row="1" Grid.Column="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="8*"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Button Click="Button_Click" Grid.Row="1" Content="Print"></Button>
+                        <Grid Grid.Row="0">
+                            
+                            <StackPanel Orientation="Horizontal" >
+                                <StackPanel Margin="20,0,0,0">
+                                    <Label HorizontalAlignment="Center" Margin="0,10,0,0">Enter a</Label>
+                                    <TextBox x:Name="ATextBox" Width="100" Margin="0,5,0,0"></TextBox>
+                                </StackPanel>
+                                <StackPanel Margin="15,0,0,0">
+                                    <Label HorizontalAlignment="Center" Margin="0,10,0,0">Enter b</Label>
+                                    <TextBox x:Name="BTextBox" Width="100
+" Margin="0,5,0,0" />
+                                    <Button Click="Button_Click" Grid.Row="1" Content="Print" Margin="0,10,0,0"></Button>
+                                </StackPanel>
+                                <StackPanel Margin="20,0,0,0">
+                                <Label HorizontalAlignment="Center" Margin="0,10,0,0" >Confidence level</Label>
+                                <TextBox x:Name="ConfidenceLevelBox" Width="100" Margin="0,5,0,0">0.95</TextBox>
+                                </StackPanel>
+                                <TextBlock x:Name="StatisticsListBox" Margin="0,20,0,0"></TextBlock>
+                            </StackPanel>
+                        </Grid>
+                       
                     </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Second Task">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5" ShowGridLines="True">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <dxc:ChartControl DataSource="{Binding NegBinData}" x:Name="chart2Control" Grid.Row="0">
+                        <dxc:ChartControl.Titles>
+                            <dxc:Title HorizontalAlignment="Center" 
+                   Content="Histogram"/>
+                        </dxc:ChartControl.Titles>
+                        <dxc:ChartControl.Diagram>
+                            <dxc:XYDiagram2D>
+                                <dxc:XYDiagram2D.Series>
+                                    <dxc:BarSideBySideSeries2D DisplayName="2017"
+                                           DataSource="{Binding NegBinData}"
+                                           ArgumentDataMember="Num"
+                                           ValueDataMember="Count"/>
+                                </dxc:XYDiagram2D.Series>
+                            </dxc:XYDiagram2D>
+                        </dxc:ChartControl.Diagram>
+                    </dxc:ChartControl>
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="8*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+
+                            <StackPanel Orientation="Horizontal" >
+                                <StackPanel Margin="20,0,0,0">
+                                    <Label HorizontalAlignment="Center" Margin="0,10,0,0">Enter p</Label>
+                                    <TextBox x:Name="PTextBox" Width="100" Margin="0,5,0,0"></TextBox>
+                                </StackPanel>
+                                <StackPanel Margin="15,0,0,0">
+                                    <Label HorizontalAlignment="Center" Margin="0,10,0,0">Enter r</Label>
+                                    <TextBox x:Name="RTextBox" Width="100
+" Margin="0,5,0,0" />
+                                    <Button Click="Button_Click_1" Grid.Row="1" Content="Print" Margin="0,10,0,0"></Button>
+                                </StackPanel>
+                                <StackPanel Margin="20,0,0,0">
+                                    <Label HorizontalAlignment="Center" Margin="0,10,0,0" >Confidence level</Label>
+                                    <TextBox x:Name="ConfidenceLevel2Box" Width="100" Margin="0,5,0,0">0.95</TextBox>
+                                </StackPanel>
+                                <TextBlock x:Name="StatisticsList2Box" Margin="0,20,0,0"></TextBlock>
+                            </StackPanel>
+                        </Grid>
+
+                    </Grid>
+                </Grid>
             </TabItem>
         </TabControl>
 

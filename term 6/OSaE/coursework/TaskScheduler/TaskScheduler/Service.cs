@@ -65,8 +65,6 @@ namespace TaskSchedulerProject
 
             // Edit task and re-register if user clicks Ok
             TaskEditDialog editorForm = new TaskEditDialog(t);
-            // ** The four lines above can be replaced by using the full constructor
-            // TaskEditDialog editorForm = new TaskEditDialog(t, true, true);
             editorForm.ShowDialog();
 
             return new List<Task>() { t };
