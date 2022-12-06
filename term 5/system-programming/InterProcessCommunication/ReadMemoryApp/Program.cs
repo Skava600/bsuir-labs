@@ -17,6 +17,7 @@ namespace ReadMemoryAp
 
             //Получение существующего участка разделяемой памяти
             //Параметр - название участка
+            while (true) { 
             MemoryMappedFile sharedMemory = MemoryMappedFile.OpenExisting("MemoryFile");
             //Сначала считываем размер сообщения, чтобы создать массив данного размера
             //Integer занимает 4 байта, начинается с первого байта, поэтому передаем цифры 0 и 4
@@ -35,10 +36,11 @@ namespace ReadMemoryAp
                 message = new char[size];
                 reader.ReadArray<char>(0, message, 0, size);
             }
-            Console.WriteLine("Получено сообщение :");
+            Console.WriteLine("Recieved message:");
             Console.WriteLine(message);
-            Console.WriteLine("Для выхода из программы нажмите любую клавишу");
+            Console.WriteLine("To update press any key");
             Console.ReadLine();
+        }
         }
     }
 }

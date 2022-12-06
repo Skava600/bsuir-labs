@@ -3,19 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RandomEventsWPF" xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+        xmlns:local="clr-namespace:RandomEventsWPF"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         xmlns:vms="clr-namespace:RandomEventsWPF.ViewModels"
+        xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
         x:Class="RandomEventsWPF.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="596" Width="850">
     <Window.DataContext>
-        <vms:TaskOneViewModel />
+        <vms:TaskViewModel />
     </Window.DataContext>
-    <TabControl SelectionChanged="TabControl_SelectionChanged">
-            
-        <TabItem  x:Name="TaskOneTab" Header="Задание один">
+
+    <TabControl>
+        <TabItem x:Name="TasksTab" Header="Main Tasks">
             <StackPanel>
-                <syncfusion:SfChart>
+                <syncfusion:SfChart >
 
                     <syncfusion:SfChart.PrimaryAxis>
 
@@ -31,19 +33,59 @@
 
                     <syncfusion:ColumnSeries  ItemsSource="{Binding Models}" XBindingPath="Name" YBindingPath="Probability">
                         <syncfusion:ColumnSeries.AdornmentsInfo>
-                            <syncfusion:ChartAdornmentInfo ShowLabel="True"  SegmentLabelFormat="0.000" >
-                            </syncfusion:ChartAdornmentInfo>
+                            <syncfusion:ChartAdornmentInfo ShowLabel="True"  SegmentLabelFormat="0.000" />
                         </syncfusion:ColumnSeries.AdornmentsInfo>
                     </syncfusion:ColumnSeries>
 
                 </syncfusion:SfChart>
-                <Button Content="Evaluate" Width="200" Height="28" Click="ButtonTaskOne_Click">
-                    
-                </Button>
+                <Button Content="Evaluate" Width="200" Height="28" Click="ButtonTaskOne_Click"/>
+                <ComboBox Width="120" x:Name="tasksList" Height="30" VerticalAlignment="Top" SelectedIndex="0">
+                    <TextBlock><Run Text="Задание 1"/></TextBlock>
+                    <TextBlock><Run Text="Задание 2"/></TextBlock>
+                    <TextBlock><Run Text="Задание 3"/></TextBlock>
+                    <TextBlock><Run Text="Задание 4"/></TextBlock>
+                </ComboBox>
             </StackPanel>
         </TabItem>
-            
-        <TabItem x:Name="TaskTwoTab" Header="Вкладка 2">Вторая вкладка</TabItem>
+
+        <TabItem x:Name="AddTask" Header="Additional task">
+            <StackPanel>
+                <Image Source="/down+arrow+download+icon-1320185738770602413.png" Height="41" Width="280" Margin="0,0,200,0" ></Image>
+                <dxc:ChartControl Name="WheelOfFortune" Padding="0,0,0,0" Height="400">
+                    <dxc:SimpleDiagram2D>
+                        <dxc:PieSeries2D x:Name="series" 
+                                       
+                                 DisplayName="Sales" 
+                                 DataSource="{Binding Path=Games}"
+                                 ArgumentDataMember="Name" 
+                                 ValueDataMember="Donuts"
+                                 LabelsVisibility="True" 
+                                 LegendTextPattern="{}{A}: ${V}"
+                                 HoleRadiusPercent="50">
+                            <!--region #Model-->
+                            <dxc:PieSeries2D.Model>
+                                <dxc:GlarePie2DModel/>
+                            </dxc:PieSeries2D.Model>
+                            <!--endregion #Model-->
+                            <dxc:PieSeries2D.Label>
+                                <dxc:SeriesLabel TextPattern="{}{VP:P}" 
+                                         dxc:PieSeries.LabelPosition="TwoColumns"/>
+                            </dxc:PieSeries2D.Label>
+                        </dxc:PieSeries2D>
+                    </dxc:SimpleDiagram2D>
+                    <dxc:ChartControl.Legends>
+                        <dxc:Legend>
+                            <dxc:Legend.Title>
+                                <dxc:LegendTitle Content="Units Sold"/>
+                            </dxc:Legend.Title>
+                        </dxc:Legend>
+                    </dxc:ChartControl.Legends>
+                </dxc:ChartControl>
+                <Button Content="Rotate" HorizontalAlignment="Left" Margin="33,0,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+            </StackPanel>
+        </TabItem>
+
+
+
     </TabControl>
-    
 </Window>

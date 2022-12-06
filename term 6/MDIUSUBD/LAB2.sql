@@ -1,154 +1,212 @@
-SET SERVEROUTPUT ON;
-/*CREATE SEQUENCE students_id_sequence
-  MINVALUE 1
-  MAXVALUE 999999999999999999999999999
-  START WITH 1
-  INCREMENT BY 1
-  CACHE 20;
-CREATE SEQUENCE groups_id_sequence
-  MINVALUE 1
-  MAXVALUE 999999999999999999999999999
-  START WITH 1
-  INCREMENT BY 1
-  CACHE 20;
-CREATE TABLE GROUPS (ID NUMBER UNIQUE NOT NULL, NAME VARCHAR2(100) NOT NULL, C_VAL NUMBER NOT NULL);
-CREATE TABLE STUDENTS (ID NUMBER UNIQUE NOT NULL, NAME VARCHAR2(100) NOT NULL, GROUP_ID NUMBER REFERENCES Groups(ID));
-/*/
-/*2 */
-CREATE OR REPLACE TRIGGER check_unique_id_group
-BEFORE INSERT OR UPDATE OF ID ON GROUPS
-FOR EACH ROW
-DECLARE
-    PRAGMA AUTONOMOUS_TRANSACTION;
-    notUniqueCount NUMBER;
-    notUniqueGroupIDException EXCEPTION;
-    PRAGMA EXCEPTION_INIT(notUniqueGroupIDException, -20000);
-BEGIN
-    SELECT COUNT(*) INTO notUniqueCount FROM GROUPS WHERE ID =:new.ID;
-    IF notUniqueCount != 0 THEN
-        RAISE notUniqueGroupIDException;
-    END IF;
-END;
-/
-CREATE OR REPLACE TRIGGER check_unique_id_student
-BEFORE INSERT OR UPDATE OF ID ON STUDENTS
-FOR EACH ROW
-DECLARE
-    PRAGMA AUTONOMOUS_TRANSACTION;
-    notUniqueCount NUMBER;
-    notUniqueStudentIDException EXCEPTION;
-    PRAGMA EXCEPTION_INIT(notUniqueStudentIDException, -20001);
-BEGIN
-    SELECT COUNT(*) INTO notUniqueCount FROM STUDENTS WHERE ID =:new.ID;
-    IF notUniqueCount != 0 THEN
-        RAISE notUniqueStudentIDException;
-    END IF;
-END;
-/
-CREATE OR REPLACE TRIGGER check_unique_groupname
-BEFORE INSERT OR UPDATE OF NAME ON GROUPS
-FOR EACH ROW
-DECLARE
-    PRAGMA AUTONOMOUS_TRANSACTION;
-    sameGroupsCount NUMBER;
-    notUniqueGroupnameException EXCEPTION;
-    PRAGMA EXCEPTION_INIT(notUniqueGroupnameException, -20002);
-BEGIN
-    SELECT COUNT(*) INTO sameGroupsCount  FROM Groups WHERE NAME = :new.NAME;
-    IF sameGroupsCount != 0 THEN
-        RAISE notUniqueGroupnameException;
-    END IF;
-END;
-/
-CREATE OR REPLACE TRIGGER increment_group_id
-BEFORE INSERT ON GROUPS
-FOR EACH ROW
-FOLLOWS check_unique_groupname
-BEGIN
-    SELECT groups_id_sequence.nextval INTO :new.ID FROM GROUPS;
-END;
-/
+--Create tables
+/*create table STUDENTS
+(
+    id       number,
+    name     varchar2(100),
+    group_id number
+);
 
-CREATE OR REPLACE TRIGGER increment_student_id
-BEFORE INSERT ON STUDENTS
-FOR EACH ROW
-BEGIN
-    SELECT students_id_sequence.nextval into :new.ID FROM STUDENTS;
-END;
-/
-/* 3*/
+create table GROUPS
+(
+    id    number,
+    name  varchar2(100),
+    c_val number
+);*/
 
-CREATE OR REPLACE TRIGGER cascade_group_delete
-BEFORE DELETE ON GROUPS
-FOR EACH ROW
-DECLARE
-    PRAGMA AUTONOMOUS_TRANSACTION;
-BEGIN
-    DELETE FROM STUDENTS WHERE GROUP_ID=:old.ID;
-    COMMIT;
-END;
-/
+--Create triggers for groups
+//create sequence groups_seq minvalue 1 maxvalue 10000 start with 1 increment by 1;
 
-/* 4 */
-/*CREATE TABLE JOURNAL (TIME TIMESTAMP NOT NULL, STATEMENT VARCHAR2(100) NOT NULL, ID_NEW NUMBER, ID_OLD NUMBER, NAME VARCHAR2(100), GROUP_ID NUMBER);*/
+create or replace trigger group_before_insert
+    before insert
+    on GROUPS
+    for each row
+declare
+    check_id number;
+begin
+    select id into check_id from GROUPS where name = :new.name;
+    raise_application_error(-20001, 'This name also used');
+exception
+    when no_data_found then
+        :new.id := groups_seq.nextval;
+        :new.c_val := 0;
+        DBMS_OUTPUT.PUT_LINE('Group created');
+end;
 
-CREATE OR REPLACE TRIGGER logging
-AFTER INSERT OR DELETE OR UPDATE ON STUDENTS
-FOR EACH ROW
-BEGIN
-    CASE
-    WHEN INSERTING THEN
-        INSERT INTO JOURNAL VALUES (SYSTIMESTAMP, 'INSERT', :NEW.ID, NULL, :NEW.NAME, :NEW.GROUP_ID);
-    WHEN UPDATING THEN
-        INSERT INTO JOURNAL VALUES (SYSTIMESTAMP, 'UPDATE', :NEW.ID, :OLD.ID, :OLD.NAME, :OLD.GROUP_ID);
-    WHEN DELETING THEN
-        INSERT INTO JOURNAL VALUES (SYSTIMESTAMP, 'DELETE', NULL, :OLD.ID, :OLD.NAME, :OLD.GROUP_ID);
-    END CASE;
-END;
-/
-/* 5 */
-CREATE OR REPLACE PROCEDURE restore(time IN TIMESTAMP)
-IS
-    CURSOR selected_logs IS
-    SELECT * FROM JOURNAL
-    WHERE TIME >= time
-    ORDER BY TIME DESC;
-BEGIN
-    FOR current_log IN selected_logs
-    LOOP
-        CASE
-            WHEN current_log.STATEMENT='INSERT' THEN
-                DELETE FROM STUDENTS WHERE ID=current_log.ID_NEW;
-            WHEN current_log.STATEMENT='UPDATE' THEN
-                UPDATE STUDENTS SET ID=current_log.ID_OLD, NAME= current_log.NAME, GROUP_ID=current_log.GROUP_ID WHERE ID=current_log.ID_NEW;
-            WHEN current_log.STATEMENT='DELETE' THEN
-                INSERT INTO STUDENTS VALUES (current_log.ID_OLD, current_log.NAME, current_log.GROUP_ID);
-        END CASE;
-        DELETE FROM JOURNAL WHERE TIME = current_log.TIME;
-    END LOOP;
-END restore;
-/
-CREATE OR REPLACE PROCEDURE restore_by_offset(offset IN INTERVAL DAY TO SECOND)
-IS
-BEGIN
-    restore(LOCALTIMESTAMP - offset);
-END restore_by_offset;
-/
+create or replace trigger group_before_update
+    before update
+    on GROUPS
+    for each row
+declare
+    check_id number;
+begin
+    select id into check_id from GROUPS where name = :new.name;
+    raise_application_error(-20001, 'Not unique');
+exception
+    when no_data_found then
+        DBMS_OUTPUT.PUT_LINE('ok');
+end;
 
-/* 6. */
-CREATE OR REPLACE TRIGGER students_change
-AFTER INSERT OR DELETE OR UPDATE ON STUDENTS
-FOR EACH ROW
-DECLARE
-rowcount NUMBER;
-BEGIN
-    CASE
-        WHEN INSERTING THEN
-            UPDATE GROUPS SET C_VAL=C_VAL+1 WHERE ID = :new.GROUP_ID;
-        WHEN UPDATING THEN 
-            UPDATE GROUPS SET C_VAL=C_VAL+1 WHERE ID = :new.GROUP_ID;
-            UPDATE GROUPS SET C_VAL=C_VAL-1 WHERE ID = :old.GROUP_ID;
-        WHEN DELETING THEN
-            UPDATE GROUPS SET C_VAL=C_VAL-1 WHERE ID = :old.GROUP_ID;
-    END CASE;
-END;
+--create sequence students_seq minvalue 1 maxvalue 10000 start with 1 increment by 1;
+
+create or replace trigger student_before_insert
+    before insert
+    on STUDENTS
+    for each row
+declare
+    check_group_name varchar2(100);
+begin
+    select name into check_group_name from GROUPS where id = :new.group_id;
+    :new.id := students_seq.nextval;
+    DBMS_OUTPUT.PUT_LINE('Student created');
+exception
+    when no_data_found then
+        raise_application_error(-20001, 'Primary key exception');
+end;
+
+create or replace trigger student_before_update
+    before update
+    on STUDENTS
+    for each row
+declare
+    check_group_name varchar2(100);
+begin
+    select name into check_group_name from GROUPS where id = :new.group_id;
+exception
+    when no_data_found then
+        raise_application_error(-20001, 'Primary key exception');
+end;
+
+--Cascade delete group trigger
+create or replace trigger group_cascade_delete
+    after delete
+    on GROUPS
+    for each row
+begin
+    delete from STUDENTS s where s.group_id = :OLD.id;
+end;
+
+--Students journal
+create table STUDENTS_JOURNAL
+(
+    op_timestamp     timestamp,
+    operation        varchar(10),
+    student_id       number,
+    student_name     varchar2(100),
+    student_group_id number
+);
+
+create or replace trigger students_insert_log
+    after insert
+    on STUDENTS
+    for each row
+begin
+    insert into STUDENTS_JOURNAL (op_timestamp, operation, student_id, student_name, student_group_id)
+    VALUES (current_timestamp, 'insert', :new.id, :new.name, :new.group_id);
+end;
+
+create or replace trigger students_delete_log
+    after delete
+    on STUDENTS
+    for each row
+begin
+    insert into STUDENTS_JOURNAL (op_timestamp, operation, student_id, student_name, student_group_id)
+    VALUES (current_timestamp, 'delete', :old.id, null, null);
+end;
+
+create or replace trigger students_update_log
+    after update
+    on STUDENTS
+    for each row
+declare
+    log_name     varchar2(100);
+    log_group_id number;
+begin
+    if :new.name IS NULL then
+        log_name := :old.name;
+    else
+        log_name := :new.name;
+    end if;
+
+    if :new.group_id IS NULL then
+        log_group_id := :old.group_id;
+    else
+        log_group_id := :new.group_id;
+    end if;
+
+    insert into STUDENTS_JOURNAL (op_timestamp, operation, student_id, student_name, student_group_id)
+    VALUES (current_timestamp, 'update', :old.id, log_name, log_group_id);
+end;
+
+--journal procedure
+create or replace procedure journal_recovery(ts timestamp, seconds number) is
+    ts_limit timestamp;
+begin
+    if seconds is null then
+        ts_limit := ts;
+    else
+        ts_limit := current_timestamp - numToDSInterval(seconds, 'second');
+    end if;
+
+    delete from STUDENTS;
+
+    for o in (select operation, student_id, student_name, student_group_id
+              from STUDENTS_JOURNAL
+              where op_timestamp <= ts_limit)
+        loop
+            if o.operation = 'insert' then
+                insert into STUDENTS (id, name, group_id) values (o.student_id ,o.student_name, o.student_group_id);
+            elsif o.operation = 'update' then
+                update STUDENTS set name = o.student_name, group_id=o.student_group_id where id = o.student_id;
+            else
+                delete from STUDENTS where id = o.student_id;
+            end if;
+        end loop;
+end;
+
+--students c_val triggers
+create or replace trigger students_group_after_insert
+    after insert
+    on STUDENTS
+    for each row
+declare
+    gId        number;
+    groupCount number;
+begin
+    gId := :new.group_id;
+
+    select c_val into groupCount from GROUPS where id = gid;
+    update GROUPS set c_val = groupCount + 1 where id = gId;
+end;
+
+create or replace trigger students_group_after_delete
+    after delete
+    on STUDENTS
+    for each row
+declare
+    gId        number;
+    groupCount number;
+begin
+    gId := :old.group_id;
+
+    select c_val into groupCount from GROUPS where id = gid;
+    update GROUPS set c_val = groupCount - 1 where id = gId;
+end;
+
+create or replace trigger students_group_after_update
+    after update
+    on STUDENTS
+    for each row
+declare
+    oldGId     number;
+    newGId     number;
+    groupCount number;
+begin
+    oldGId := :old.group_id;
+    newGId := :new.group_id;
+
+    select c_val into groupCount from GROUPS where id = oldGId;
+    update GROUPS set c_val = groupCount - 1 where id = oldGId;
+
+    select c_val into groupCount from GROUPS where id = newGId;
+    update GROUPS set c_val = groupCount + 1 where id = newGId;
+end;

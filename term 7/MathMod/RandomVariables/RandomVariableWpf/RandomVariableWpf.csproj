@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="devexpress.wpf.charts" Version="22.1.6" />
     <PackageReference Include="Syncfusion.SfChart.WPF" Version="20.3.0.57" />
   </ItemGroup>
 

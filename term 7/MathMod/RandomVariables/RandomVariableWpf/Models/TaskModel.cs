@@ -8,12 +8,12 @@ namespace RandomVariableWpf.Models
 {
     internal class TaskModel
     {
-        public int Index { get; set; }
-        public int Hits { get; set; }
-        public TaskModel(int index, int count)
+        public int Num { get; set; }
+        public int Count { get; set; }
+        public TaskModel(int num,  int count)
         {
-            Index = index;
-            Hits = count;
+            Count = count;
+            Num = num;
         }
     }
 }
