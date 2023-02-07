@@ -2,7 +2,6 @@ import itertools
 import math
 import random
 import csv
-import numpy
 
 FIRST_PRIMES_10K = []
 

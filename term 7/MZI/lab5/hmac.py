@@ -36,10 +36,10 @@ def hmac(key, message):
 
 if __name__ == "__main__":
     key = "key"
-    text = "Some body once told the world is gonna roll me"
+    text = "Helloworld"
     result = bin_to_hex(hmac(str_to_bin(key), str_to_bin(text)))
     print(f"HMAC('{key}', '{text}') = {result}")
-    text = "Some body once told the world is gonna roll me"
+    text = "Helloworld"
     result = bin_to_hex(hmac(str_to_bin(key), str_to_bin(text)))
     print(f"HMAC('{key}', '{text}') = {result}")
     text = "md5"

@@ -8,7 +8,6 @@ namespace QueuingSystem
 {
     public class Canteen
     {
-        // flow of visitors to the dining room
         public double X { get; set; }
         // parameter of the exponential distribution
         public double p { get; set; }

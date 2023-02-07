@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="962216d3-d15d-405d-a8cb-082e4f518194" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../MZI/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../MZI/lab1/des.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../MZI/lab1/des.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../MZI/lab1/double_des_encrypted.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../MZI/lab1/double_des_encrypted.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../MZI/lab1/gost28147-89.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../MZI/lab1/gost28147-89.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../MZI/lab1/triple_des_encrypted.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../MZI/lab1/triple_des_encrypted.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../MZI/lab2/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../MZI/lab2/lab2.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../MZI/lab2/lab2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../MZI/lab3/data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../MZI/lab3/data.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../MZI/lab3/rsa.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../MZI/lab3/rsa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../MZI/lab4/data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../MZI/lab4/data.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../MZI/lab5/hmac.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../MZI/lab5/hmac.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../MZI/lab5/md5.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../MZI/lab5/md5.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NDimensionRandomVariables/.idea/NDimensionRandomVariables.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../NDimensionRandomVariables/.idea/NDimensionRandomVariables.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NDimensionRandomVariables/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../NDimensionRandomVariables/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NDimensionRandomVariables/discrete_ran_value.py" beforeDir="false" afterPath="$PROJECT_DIR$/../NDimensionRandomVariables/discrete_ran_value.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../NDimensionRandomVariables/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../NDimensionRandomVariables/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/QueuingSystem/Canteen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/QueuingSystem/Canteen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/queuing_system/canteen_sim.py" beforeDir="false" afterPath="$PROJECT_DIR$/queuing_system/canteen_sim.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/queuing_system/canteen_theor.py" beforeDir="false" afterPath="$PROJECT_DIR$/queuing_system/canteen_theor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/queuing_system/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/queuing_system/main.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2K34jH8EaBcJJkryfYWyeulokP6" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="962216d3-d15d-405d-a8cb-082e4f518194" name="Changes" comment="" />
+      <created>1673190065948</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1673190065948</updated>
+    </task>
+    <servers />
+  </component>
+</project>

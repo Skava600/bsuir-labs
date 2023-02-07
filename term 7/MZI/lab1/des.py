@@ -27,7 +27,7 @@ def triple_des_decrypt(text, key1, key2, key3):
 
 
 if __name__ == '__main__':
-    key1 = 'KEY 1111'
+    key1 = 'KEY 1112'
     key2 = 'KEY 2222'
     key3 = 'KEY 3333'
     text = ""

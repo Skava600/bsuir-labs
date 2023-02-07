@@ -33,5 +33,5 @@ if __name__ == '__main__':
     print(gost28147_89_encrypted)
     with open("gost28147_89_decrypted.txt", "wb+") as file:
         file.write(gost28147_89_decrypted)
-    print(gost28147_89_encrypted)
+    print(gost28147_89_decrypted)
 

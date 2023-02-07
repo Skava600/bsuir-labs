@@ -260,7 +260,7 @@ def ctr_decrypt(text, key, s):
 
 
 def get_init_vector():
-    return "".join(random.choice(string.ascii_letters + string.digits) for x in range(random.randint(16, 16)))
+    return "".join(random.choice(string.ascii_letters + string.digits) for x in range(16))
 
 
 if __name__ == '__main__':

@@ -123,10 +123,10 @@ def md5(data):
 
 
 if __name__ == "__main__":
-    text = "Some body once told the world is gonna roll me"
+    text = "Helloworld"
     result = bin_to_hex(md5(str_to_bin(text)))
     print(f"MD5('{text}') = {result}")
-    text = "Some body once told the world is gonna roll me"
+    text = "Helloworld"
     result = bin_to_hex(md5(str_to_bin(text)))
     print(f"MD5('{text}') = {result}")
     text = "md5"

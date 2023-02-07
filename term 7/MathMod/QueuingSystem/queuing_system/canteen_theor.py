@@ -23,7 +23,7 @@ class Canteen:
         return 1 / math.pow(self.p, 2) + math.pow(1 / self.p, 2)
 
     def m_t2_h2(self):
-        return 1 / math.pow(self.p, 2) + math.pow(2 / self.p, 2)
+        return 2 / math.pow(self.p, 2) + math.pow(2 / self.p, 2)
 
     # второй начальный момент
     def m_t2(self):
@@ -49,7 +49,7 @@ def get_canteen_alpha(X, mu, q):
 
 
 def canteen_has_static_state(X, mu, q):
-    #alpha = X(2q + (1 - q)) / mu = X(1 + q) / mu
+    #alpha = X(2q + (1 - q)) / mu = X(1 + q) / mu : x < m[t]
     return get_canteen_alpha(X, mu, q) < 1
 
 
@@ -65,10 +65,6 @@ def calculate_theoretical_characteristics(X, mu, q, t):
     if canteen_has_static_state(X, mu, q):
         for i in range(30):
             p1.append((alpha ** i) * (1 - alpha))
-            # p2.append(1 - np.exp(- i / m_eating))
-            # p2.append(1 - (alpha ** i) / math.factorial(i) * np.exp(-1 / m_eating))
-            # p2.append(0 if i == 0 else np.exp(- (i - 1) / m_eating) - np.exp(- i / m_eating))
-            # p2.append(np.exp(- i / m_eating) - np.exp(- (i + 1) / m_eating))
             F_x = lambda x: 1 - np.exp(- x / m_eating)
             if i == 0:
                 p2.append(F_x(0.5))
@@ -79,19 +75,15 @@ def calculate_theoretical_characteristics(X, mu, q, t):
             for j in range(len(indexes_i)):
                 p_i = p_i + p1[indexes_i[j][0]] * p2[indexes_i[j][1]]
             p.append(p_i)
-        Q = 1
-        A = X
         L_canteen = alpha / (1 - alpha) + m_eating
         L_queue = alpha ** 2 / (1 - alpha)
         t_canteen = L_canteen / X
         t_queue = L_queue / X
     else:
         p=[0 for _ in range(15)]
-        Q = 1
-        A = X
         L_canteen = Inf
         L_queue = Inf
         t_canteen = Inf
         t_queue = Inf
 
-    return p, Q, A, L_canteen, L_queue, t_canteen, t_queue
+    return p, L_canteen, L_queue, t_canteen, t_queue

@@ -1,4 +1,4 @@
-
+import math
 import random
 from f_density import FDenstity
 
@@ -8,19 +8,20 @@ from mpl_toolkits import mplot3d
 
 import sympy as sp
 import scipy
+from math import e
 
 from IPython.display import display as ipydisplay, Math
 
 
 # Плотность распределения
-f_str = '0.5 * sin(x+y)'
+f_str = 'exp(-x-y)'
 f_sp = sp.sympify(f_str)
 f = sp.lambdify(sp.symbols('x, y'), f_sp)
 x_sp, y_sp = sp.symbols('x y')
 
 print(f'f(x, y) = {f_sp}')
 
-f_xy = FDenstity(f, 0, np.pi / 2, 0, np.pi / 2)
+f_xy = FDenstity(f, 0, math.inf, 0, math.inf)
 
 
 # Функция распределения
@@ -39,9 +40,9 @@ integral_value = sp.integrate(
     (x_sp, f_xy.x1, f_xy.x2),
     (y_sp, f_xy.y1, f_xy.y2),
 )
-print(f'начение определенного интеграла функции плотности распределения равно 1:r{round(float(integral_value), 2)}')
+print(f'значение определенного интеграла функции плотности распределения равно 1:r{round(float(integral_value), 2)}')
 
-# Одномерные плотности:
+##Одномерные плотности:
 
 f_x_sp = sp.integrate(
     f_sp,
@@ -119,7 +120,7 @@ plt.show()
 
 plt.clf()
 
-# График разности f(x, y) и f(x)*f(y):
+# График разности f(x, y) и f(x)*f(y): если равны то св независимы
 
 Z = f(X, Y) - multiplied(X, Y)
 fig = plt.figure(label='Разность f(x, y) и f(x)*f(y)')
@@ -149,6 +150,72 @@ def generate_sample(pdf_xy: FDenstity, sample_size=sample_size):
 sample = generate_sample(f_xy)
 x_sample = [el[0] for el in sample]
 y_sample = [el[1] for el in sample]
+
+ # Ожидаемое и наблюдаемое математическое ожидание:
+
+expected_mean = (
+    scipy.integrate.dblquad(
+        lambda x, y: x * f(x, y),
+        f_xy.x1, f_xy.x2,
+        f_xy.y1, f_xy.y2
+    )[0],
+    scipy.integrate.dblquad(
+        lambda x, y: y * f(x, y),
+        f_xy.x1, f_xy.x2,
+        f_xy.y1, f_xy.y2
+    )[0]
+)
+observed_mean = (
+    np.mean(x_sample),
+    np.mean(y_sample),
+)
+
+print(f'expected mean: {expected_mean}')
+print(f'observed mean: {observed_mean}')
+
+# Ожидаемая и наблюдаемая дисперсия:
+
+expected_variance = (
+    scipy.integrate.dblquad(
+        lambda x, y: (x - expected_mean[0])**2 * f(x, y),
+        f_xy.x1, f_xy.x2,
+        f_xy.y1, f_xy.y2,
+    )[0],
+    scipy.integrate.dblquad(
+        lambda x, y: (y - expected_mean[1])**2 * f(x, y),
+        f_xy.x1, f_xy.x2,
+        f_xy.y1, f_xy.y2,
+    )[0],
+)
+
+observed_variance = (
+    np.var(x_sample),
+    np.var(y_sample),
+)
+
+print(f'expected variance: {expected_variance}')
+print(f'observed variance: {observed_variance}')
+
+# Ожидаемая и наблюдаемая корреляция:
+
+expected_r_xy = scipy.integrate.dblquad(
+    lambda x, y: ((x - expected_mean[0]) *
+                  (y - expected_mean[1]) *
+                  f(x, y)),
+    f_xy.x1, f_xy.x2,
+    f_xy.y1, f_xy.y2,
+)[0] / np.sqrt(expected_variance[0] * expected_variance[1])
+
+x_sample_centered = x_sample - observed_mean[0]
+y_sample_centered = y_sample - observed_mean[1]
+
+observed_r_xy = ((x_sample_centered @ y_sample_centered)
+                 / (len(x_sample)
+                    * np.sqrt(observed_variance[0]
+                              * observed_variance[1])))
+
+print(f'expected r_xy: {expected_r_xy}')
+print(f'observed r_xy: {observed_r_xy}')
 
 # Построение гистограммы для иксов:
 
@@ -228,71 +295,7 @@ plt.show()
 plt.clf()
 
 
- # Ожидаемое и наблюдаемое математическое ожидание:
 
-expected_mean = (
-    scipy.integrate.dblquad(
-        lambda x, y: x * f(x, y),
-        f_xy.x1, f_xy.x2,
-        f_xy.y1, f_xy.y2
-    )[0],
-    scipy.integrate.dblquad(
-        lambda x, y: y * f(x, y),
-        f_xy.x1, f_xy.x2,
-        f_xy.y1, f_xy.y2
-    )[0]
-)
-observed_mean = (
-    np.mean(x_sample),
-    np.mean(y_sample),
-)
-
-print(f'expected mean: {expected_mean}')
-print(f'observed mean: {observed_mean}')
-
-# Ожидаемая и наблюдаемая дисперсия:
-
-expected_variance = (
-    scipy.integrate.dblquad(
-        lambda x, y: (x - expected_mean[0])**2 * f(x, y),
-        f_xy.x1, f_xy.x2,
-        f_xy.y1, f_xy.y2,
-    )[0],
-    scipy.integrate.dblquad(
-        lambda x, y: (y - expected_mean[1])**2 * f(x, y),
-        f_xy.x1, f_xy.x2,
-        f_xy.y1, f_xy.y2,
-    )[0],
-)
-
-observed_variance = (
-    np.var(x_sample),
-    np.var(y_sample),
-)
-
-print(f'expected variance: {expected_variance}')
-print(f'observed variance: {observed_variance}')
-
-# Ожидаемая и наблюдаемая корреляция:
-
-expected_r_xy = scipy.integrate.dblquad(
-    lambda x, y: ((x - expected_mean[0]) *
-                  (y - expected_mean[1]) *
-                  f(x, y)),
-    f_xy.x1, f_xy.x2,
-    f_xy.y1, f_xy.y2,
-)[0] / np.sqrt(expected_variance[0] * expected_variance[1])
-
-x_sample_centered = x_sample - observed_mean[0]
-y_sample_centered = y_sample - observed_mean[1]
-
-observed_r_xy = ((x_sample_centered @ y_sample_centered)
-                 / (len(x_sample)
-                    * np.sqrt(observed_variance[0]
-                              * observed_variance[1])))
-
-print(f'expected r_xy: {expected_r_xy}')
-print(f'observed r_xy: {observed_r_xy}')
 
 
 

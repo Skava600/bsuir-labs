@@ -23,9 +23,9 @@ class CanteenSimulation:
         self.q = q
         self.t = t
         # empirical values lists:
-        # 1) queue - students in the queue
-        # 2) checkout - students in the queue and cash desk
-        # 3) canteen - students in the queue, cash desk and overall canteen (while eating)
+        # 1) queue - visitors in the queue
+        # 2) checkout - visitors in the queue and cash desk
+        # 3) canteen - visitors in the queue, cash desk and overall canteen (while eating)
         self.L_canteen_list = []
         self.L_checkout_list = []
         self.L_queue_list = []
@@ -69,16 +69,11 @@ class CanteenSimulation:
         with self.eating_performer.request() as request:
             visitor.L_canteen = visitor.L_checkout + eating_count_before
             arrival_time = self.env.now
-            # print(f'Student №{hungry_student.number} starts eating at {arrival_time}')
-            # print(f'L_canteen: {hungry_student.L_canteen}')
 
             yield request
             for _ in range(visitor.count_dishes):
                 yield self.env.process(self.request_eating())
             visitor.time_ate = visitor.time_checkout + self.env.now - arrival_time
-            # print(f'Student №{hungry_student.number} finished eating at {self.env.now}; time_ate = {hungry_student.time_ate}')
-            # print(hungry_student.L_canteen, hungry_student.L_checkout, hungry_student.L_queue,
-            #       hungry_student.time_ate, hungry_student.time_checkout, hungry_student.time_queue)
             self.L_canteen_list.append(visitor.L_canteen)
             self.L_checkout_list.append(visitor.L_checkout)
             self.L_queue_list.append(visitor.L_queue)
@@ -94,18 +89,14 @@ class CanteenSimulation:
             visitor.L_queue = queque_len_before
             visitor.L_checkout = queque_len_before + queque_count_before
             arrival_time = self.env.now
-            # print(f'Student №{hungry_student.number} arrived at {arrival_time}')
 
             yield request
             visitor.time_queue = self.env.now - arrival_time
-            # print(f'Student №{hungry_student.number} passed queue at {self.env.now}; time_queue = {hungry_student.time_queue}')
 
             for _ in range(visitor.count_dishes):
                 yield self.env.process(self.request_checkout_processing())
             visitor.time_checkout = self.env.now - arrival_time
             self.visitors.append(visitor)
-            # print(f'Student №{hungry_student.number} passed cash desk at {self.env.now}; time_checkout = {hungry_student.time_checkout}')
-            # print(f'Hungry Students count {len(self.hungry_students)}')
 
     def request_eating(self):
         yield self.env.timeout(np.random.exponential(self.t))
@@ -126,11 +117,10 @@ def calculate_empirical_characteristics(canteen):
         p_i = request_frequency / len(L_canteen_list)
         p.append(p_i)
 
-    Q = 1
-    A = canteen.X
+
     L_canteen = sum(L_canteen_list) / len(L_canteen_list)
     L_queue = sum(L_queue_list) / len(L_queue_list)
     t_canteen = sum(t_canteen_list) / len(t_canteen_list)
     t_queue = sum(t_queue_list) / len(t_queue_list)
 
-    return p, Q, A, L_canteen, L_queue, t_canteen, t_queue
+    return p, L_canteen, L_queue, t_canteen, t_queue

@@ -1,289 +1,174 @@
 from scipy.stats import rv_discrete
 import numpy as np
 import matplotlib.pyplot as plt
+import math
+import random
+import sys
+import csv
+from matplotlib import cm
+from random import random
+from scipy import integrate
+from scipy import stats
 
-prob_distr_matrix = [[0.01, 0.04, 0.02, 0.03],
-                     [0.04, 0.16, 0.08, 0.12],
-                     [0.02, 0.08, 0.04, 0.06],
-                     [0.03, 0.12, 0.06, 0.09]]
-prob_distr_matrix = [[15/28, 6/28],
-                    [6/28, 1/28]]
+def generate_dsv(x, y, P):
+    n, m = len(x), len(y)
+    q = [sum(P[:, i]) for i in range(n)]
+    Fx = [sum(q[:k + 1]) for k in range(n)]
+
+    x_i = 0
+    e = random()
+    while e > Fx[x_i]:
+        x_i += 1
+
+    Fy = [sum(P[:k + 1, x_i]) for k in range(m)]
+
+    y_i = 0
+    e = random() * max(Fy)
+    while e > Fy[y_i]:
+        y_i += 1
+
+    return x[x_i], y[y_i]
 
 
-p_y = [sum(x) for x in zip(*prob_distr_matrix)]
-p_x = [sum(x) for x in prob_distr_matrix]
-# Матожидания дсв
-M_X = sum([v * p for v, p in zip(list(range(0, len(p_y))), p_y)])
-M_Y = sum([v * p for v, p in zip(list(range(0, len(p_y))), p_x)])
-print(f"M_X {M_X}, M_Y - {M_Y}")
+x = [1, 2, 3, 4, 5]
+y = [6, 7, 8, 9, 10]
 
-x = np.arange(len(p_x))
-X = rv_discrete(name='X', values=(x, p_x))
-fig, ax = plt.subplots(1, 1)
-ax.plot(x, X.pmf(x), 'ro', ms=12, mec='r')
-ax.vlines(x, 0, X.pmf(x), colors='r', lw=4)
+n = len(x)
+m = len(y)
+
+P = np.array(
+    [[0.05, 0.01, 0.05, 0.03, 0.10],
+     [0.09, 0.03, 0.06, 0.14, 0.04],
+     [0.05, 0.01, 0.03, 0.01, 0.05],
+     [0.03, 0.01, 0.01, 0.03, 0.04],
+     [0.04, 0.03, 0.03, 0.02, 0.01]])
+
+print("Сумма элементов матрицы: ", np.sum(P))
+if round(np.sum(P), 3) != 1.000:
+    print("Матрица распределения ДСВ задана неверно! Дальнейшая работа невозможна")
+    sys.exit()
+
+
+N = 10000
+
+x_values = []
+y_values = []
+
+for _ in range(N):
+    _x, _y = generate_dsv(x, y, P)
+    x_values.append(_x)
+    y_values.append(_y)
+
+p_x = [sum(P[:, i]) for i in range(n)]
+p_y = [sum(P[j, :]) for j in range(m)]
+
+
+p_x_imp = [x_values.count(_x) / N for _x in x]
+p_y_imp = [y_values.count(_y) / N for _y in y]
+
+print(f"{p_x}\n{p_x_imp}\n")
+print(f"{p_y}\n{p_y_imp}\n")
+
+def independence(P, p_x, p_y):
+    for i in range(len(p_x)):
+        for j in range(len(p_y)):
+            if P[i][j] != p_x[i] * p_y[j]:
+                print('X, Y зависимы')
+                print(f'{P[i][j]} != {p_x[i]*p_y[j]}')
+                return
+    print('X, Y независимы')
+
+independence(P, p_x, p_y)
+
+p_yx = np.copy(P)
+for i in range(n):
+    for j in range(m):
+        p_yx[j, i] /= p_x[i]
+
+print("P(Y|X)\n", p_yx)
+
+p_xy = np.copy(P)
+for i in range(n):
+    for j in range(m):
+        p_xy[j, i] /= p_y[j]
+
+print("P(X|Y)\n", p_xy)
+
+plt.hist(x_values, weights=[1/N]*N, color="red")
+plt.plot(x, p_x)
+plt.hist(y_values, weights=[1/N]*N, color="blue")
+plt.plot(y, p_y)
 plt.show()
 
-
-from sympy import *
-import matplotlib.pyplot as plt
-import scipy.stats as sta
-import numpy as np
-
-N, M = 2, 3
-counter = 10
-round = 1000
-
-X = np.zeros(N)
-Y = np.zeros(M)
-
-xy = np.random.dirichlet(np.ones(N * M))
-
-
-def x_y_row(N, x_y, counter):
-    for i in range(N):
-        do = True
-        while (do):
-            temp_item = np.random.randint(1, counter)
-            if temp_item not in x_y:
-                x_y[i] = temp_item
-                do = False
-    return np.sort(x_y)
-
-
-X = x_y_row(N, X, counter)
-Y = x_y_row(M, Y, counter)
-print('X = ', X)
-print('Y = ', Y)
-
-# распределение по x
-p_x = np.zeros(N)
-sum = 0
-for i in range(N * M):
-    sum += xy[i]
-    if (i + 1) % M == 0:
-        p_x[int(i / M)] = sum
-        sum = 0
-
-
-# функция распределения для x
-def distribution_F(N, p):
-    f = np.zeros(N)
-    sum = 0
-    for i in range(N):
-        sum += p[i]
-        f[i] = sum
-    return f
-
-
-# функция распределения для двумерной
-def distribution_F_y_x(N, M, xy, p_x):
-    y_x_f = np.zeros((N, M))
-
-    for i in range(N):
-        sum = 0
-        for j in range(M):
-            sum += xy[i * M + j]
-            y_x_f[i, j] = sum / p_x[i]
-
-    return y_x_f
-
-
-F_x = distribution_F(N, p_x)
-F_yx = distribution_F_y_x(N, M, xy, p_x)
-discrete_f = np.zeros((round, 2))
-
-
-# ДСВ
-def discrete_random_value(round, X, Y, F_x, F_yx, d_f):
-    for i in range(round):
-        x_y_random = np.random.uniform(size=2)
-        x = x_y_random[0]
-        y = x_y_random[1]
-
-        x_index = np.searchsorted(F_x, x)
-        y_index = np.searchsorted(F_yx[x_index], y)
-
-        d_f[i][0] = X[x_index]
-        d_f[i][1] = Y[y_index]
-    return d_f
-
-
-DSV = discrete_random_value(round, X, Y, F_x, F_yx, discrete_f)
-
-print('discrete_random_value:')
-print(DSV)
-
-
-def empiric_probability_matrix(round, DSV, X, Y):
-    matrix = np.zeros((N, M))
-    unique_discreteSV, SV_counts = np.unique(DSV, return_counts=True, axis=0)
-    count_diff_elem_SV = len(unique_discreteSV)
-
-    for i in range(count_diff_elem_SV):
-        x_ind = np.where(X == unique_discreteSV[i][0])
-        y_ind = np.where(Y == unique_discreteSV[i][1])
-        matrix[x_ind, y_ind] = SV_counts[i] / round
-    return matrix
-
-
-empiric_probability_matrix = empiric_probability_matrix(round, DSV, X, Y)
-print('empiric_probability_matrix: ', empiric_probability_matrix)
-
-teoretical_probability_matrix = np.hsplit(xy, N)
-print('teoretical_probability_matrix', teoretical_probability_matrix)
-
-
-def plot_histogram(DSV, title, measures):
-    if measures == 'x':
-        measure = [SV[0] for SV in DSV]
-    else:
-        measure = [SV[1] for SV in DSV]
-    diff_measure, count_measure = np.unique(measure, return_counts=True)
-    fig = plt.figure()
-    ax = fig.add_axes([0, 0, 1, 1])
-    ax.set_title(title)
-    rects1 = ax.bar(diff_measure, count_measure / len(measure), tick_label=diff_measure)
-    plt.show()
-
-
-plot_histogram(DSV, 'Гистограмма  X', 'x')
-plot_histogram(DSV, 'Гистограмма  Y', 'y')
-
-
-# эмпирич мат ожид
-def expected_value(DSV, round, measures):
-    if measures == 'x':
-        return np.sum([SV[0] for SV in DSV]) / round
-    else:
-        return np.sum([SV[1] for SV in DSV]) / round
-
-
-expected_value_x = expected_value(DSV, round, 'x')
-expected_value_y = expected_value(DSV, round, 'y')
-
-
-# теорит мат ожид
-def theoretical_expected_value(xy, measure, measures):
-    if measures == 'x':
-        return np.sum(np.sum(xy, axis=1) * measure)
-    else:
-        return np.sum(np.sum(xy, axis=0) * measure)
-
-
-theoretical_expected_value_x = theoretical_expected_value(teoretical_probability_matrix, X, 'x')
-theoretical_expected_value_y = theoretical_expected_value(teoretical_probability_matrix, Y, 'y')
-
-
-print('Эмпирическое М[X] = ', expected_value_x)
-print('Теоретическое М[X] = ', theoretical_expected_value_x)
-
-
-print('Эмпирическое М[Y] = ', expected_value_y)
-print('Теоретическое М[Y] = ', theoretical_expected_value_y)
-
-
-# дисперсия
-def dispersion_value(DSV, type_measures):
-    if type_measures == 'x':
-        return np.var([SV[0] for SV in DSV], ddof=1)
-    else:
-        return np.var([SV[1] for SV in DSV], ddof=1)
-
-
-dispersion_value_x = dispersion_value(DSV, 'x')
-dispersion_value_y = dispersion_value(DSV, 'y')
-
-
-def theoretical_dispersion_value(xy, measures, type_measures):
-    if type_measures == 'x':
-        sum_by_x = np.sum(xy, axis=1)
-        return np.sum(sum_by_x * (measures ** 2)) - np.sum(sum_by_x * measures) ** 2
-    else:
-        sym_by_y = np.sum(xy, axis=0)
-        return np.sum(sym_by_y * (measures ** 2)) - np.sum(sym_by_y * measures) ** 2
-
-
-theoretical_dispersion_value_x = theoretical_dispersion_value(teoretical_probability_matrix, X, 'x')
-theoretical_dispersion_value_y = theoretical_dispersion_value(teoretical_probability_matrix, Y, 'y')
-
-
-print('Эмпирическое D[X] = ', dispersion_value_x)
-print('Теоретическое D[X] = ', theoretical_dispersion_value_x)
-
-
-print('Эмпирическое D[Y] = ', dispersion_value_y)
-print('Теоретическое D[Y] = ', theoretical_dispersion_value_y)
-
-
-def intervals_expected(DSV, measures, round, r=0.95):
-    normal_quantile = sta.norm.ppf((1 + r) / 2)
-    if measures == 'x':
-        value = [SV[0] for SV in DSV]
-    else:
-        value = [SV[1] for SV in DSV]
-
-    sv_mean = np.mean(value)
-    sv_var = np.var(value, ddof=1)
-
-    return (sv_mean - np.sqrt(sv_var / round) * normal_quantile,
-            sv_mean + np.sqrt(sv_var / round) * normal_quantile)
-
-
-interfal_x = intervals_expected(DSV, 'x', round)
-interfal_y = intervals_expected(DSV, 'y', round)
-
-
-print('Доверительный интервал мат ожидания X: ', interfal_x)
-print('Доверительный интервал мат ожидания Y: ', interfal_y)
-
-
-def intervals_dispersion(discrete_SV, measures, n, confidence_level=0.95):
-    if measures == 'x':
-        value = [SV[0] for SV in discrete_SV]
-
-    else:
-        value = [SV[1] for SV in discrete_SV]
-
-    sv_var = np.var(value, ddof=1)
-
-
-    xi = sta.chi2(n - 1)
-    array = xi.rvs(100000)
-    temp = sta.mstats.mquantiles(array, prob=[(1 - confidence_level) / 2, (1 + confidence_level) / 2])
-    xi_plus = temp[0]
-    xi_minus = temp[1]
-
-    return ((n - 1) * sv_var / xi_minus,
-            (n - 1) * sv_var / xi_plus)
-
-
-interval_dispersion_x = intervals_dispersion(DSV, 'x', round)
-interval_dispersion_y = intervals_dispersion(DSV, 'y', round)
-
-
-print('Доверительный интервал дисперсии X: ', interval_dispersion_x)
-print('Доверительный интервал дисперсии Y: ', interval_dispersion_y)
-
-
-def correlation(X, Y, matr, mX, mY, dispepsionX, dispersionY):
-    cov = 0
-    for i in range(len(X)):
-        for j in range(len(Y)):
-            cov = cov + (X[i] * Y[j] * matr[i][j])
-
-    cov -= mX * mY
-    c = cov / np.sqrt(dispepsionX * dispersionY)
-    return cov, c
-
-
-covarilation_theoretical, correlation_theoretical = correlation(X, Y, teoretical_probability_matrix, theoretical_expected_value_x, theoretical_expected_value_y, theoretical_dispersion_value_x, theoretical_dispersion_value_y)
-covar_empiric, correlation_empiric = correlation(X, Y, empiric_probability_matrix, expected_value_x, expected_value_y, dispersion_value_x, dispersion_value_y)
-
-
-print('Теоретическая ковариация = ', covarilation_theoretical)
-print('Теоретический коэфф корреляции = ', correlation_theoretical)
-
-
-print('Эмпиричекая ковариация = ', covar_empiric)
-print('Эмпирический коэффициент корреляция = ', correlation_empiric)
+alpha = 0.99
+
+def stat_mean(x):
+    return sum(x) / len(x)
+
+def stat_variance(x, mean):
+    return sum((_x - mean) ** 2 for _x in x) / len(x)
+
+def stat_correlation(x, y, Mx, My):
+    numerator = sum((_x - Mx) * (_y - My) for _x, _y in zip(x, y))
+    sum_x2 = sum((_x - Mx) ** 2 for _x in x)
+    sum_y2 = sum((_y - My) ** 2 for _y in y)
+    return numerator / np.sqrt(sum_x2 * sum_y2)
+
+def discrete_mean(x, p_x):
+    return sum([x[i] * p_x[i] for i in range(len(x))])
+
+def discrete_variate(x, p_x, M):
+    return sum([(x[i] ** 2) * p_x[i] for i in range(len(x))]) - M ** 2
+
+#Стандартное отклонение
+def sem(x, s2):
+    return np.sqrt(s2 / len(x))
+
+# Исправленная выборочная дисперсия
+def s2(x, Mx):
+    return sum((_x - Mx) ** 2 for _x in x) / (len(x) - 1)
+
+def ci_mean(x, alpha):
+    m = stat_mean(x)
+    se = sem(x, s2(x, m))
+    return m - alpha * se, m + alpha * se
+
+def ci_variance(x, alpha):
+    a = (1 - alpha) / 2
+    n = len(x)
+    _s2 = s2(x, stat_mean(x))
+    left = (n - 1) * _s2 / stats.chi2.ppf(1 - a, df=n - 1)
+    right = (n - 1) * _s2 / stats.chi2.ppf(a, df=n - 1)
+    return left, right
+
+Mx = discrete_mean(x, p_x)
+My = discrete_mean(y, p_y)
+Dx = discrete_variate(x, p_x, Mx)
+Dy = discrete_variate(y, p_y, My)
+Mxy = sum([sum([x * y * P[j, i] for j, y in enumerate(y)]) for i, x in enumerate(x)])
+correlation = (Mxy - Mx * My) / np.sqrt(Dx * Dy)
+
+print('Теоретическое значение m[x]', Mx)
+print('Теоретическое значение m[y]', My)
+print('Теоретическое значение D[y]', Dy)
+print('Теоретическое значение D[x]', Dx)
+print('Теоретическое значение коэффициента корреляции', correlation)
+
+Mx_imp = discrete_mean(x, p_x_imp)
+My_imp = discrete_mean(y, p_y_imp)
+Dx_imp = discrete_variate(x, p_x_imp, Mx_imp)
+Dy_imp = discrete_variate(y, p_y_imp, My_imp)
+corr_imp = stat_correlation(x_values, y_values, Mx_imp, My_imp)
+
+print('Точечная оценка m[y]', My_imp)
+print('Точечная оценка m[x]', Mx_imp)
+print('Точечная оценка D[y]', Dy_imp)
+print('Точечная оценка D[x]', Dx_imp)
+print('Точечная оценка коэффициента корреляции', corr_imp)
+
+print('Доверительный интервал мат. ожидания X', ci_mean(x_values, alpha))
+print('Доверительный интервал мат. ожидания Y', ci_mean(y_values, alpha))
+print('Доверительный интервал дисперсии X', ci_variance(x_values, alpha))
+print('Доверительный интервал дисперсии Y', ci_variance(y_values, alpha))
+
+print("Коэффициент корреляции R[xy]: ", correlation)

@@ -6,11 +6,10 @@ from canteen_theor import *
 
 
 def display_characteristics(theoretical_characteristics, empirical_characteristics, canteen):
-    p1, Q1, A1, l_canteen1, l_queue1, t_canteen1, t_queue1 = theoretical_characteristics
-    p2, Q2, A2, l_canteen2, l_queue2, t_canteen2, t_queue2 = empirical_characteristics
+    p1,  l_canteen1, l_queue1, t_canteen1, t_queue1 = theoretical_characteristics
+    p2, l_canteen2, l_queue2, t_canteen2, t_queue2 = empirical_characteristics
     output_list = [[f'p{(i)}', p1[i], p2[i]] for i in range (min([len(p1), len(p2), 10]))]
-    output_list.extend([['Q (относительная пропускная способность)', Q1, Q2],
-                        ['A (абсолютная пропускная способность)', A1, A2],
+    output_list.extend([
                         ['L СМО (среднее число посетителей в столовой)',l_canteen1, l_canteen2],
                         ['L очереди (среднее число посетителей в очереди)', l_queue1, l_queue2],
                         ['t СМО (среднее время посетителя в столовой)', t_canteen1, t_canteen2],
@@ -28,9 +27,9 @@ def get_xi_2(o, e):
 
 
 def plot_graphs(theoretical_characteristic, empirical_characteristic):
-    plt.plot(theoretical_characteristic[0])
+    #plt.plot(theoretical_characteristic[0])
     plt.plot(empirical_characteristic[0])
-    plt.legend(['Теоретические вероятности', 'Эмпирические вероятности'])
+    plt.legend(['Эмпирические вероятности'])
     plt.xlabel('p[i]')
     plt.show()
 
